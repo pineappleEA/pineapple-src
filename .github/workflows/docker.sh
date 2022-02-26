@@ -40,7 +40,10 @@ cd /yuzu
 
 pip3 install conan --upgrade 
 
-mkdir build && cd build 
+mkdir build && cd build
+
+export CFLAGS="-flto -Ofast"
+export CXXFLAGS="-flto -Ofast"
 
 cmake ..                                    \
   -DCMAKE_BUILD_TYPE=Release                \
