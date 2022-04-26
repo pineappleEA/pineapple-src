@@ -211,7 +211,7 @@ public:
     void FlushCachedWrites() noexcept {
         flags &= ~BufferFlagBits::CachedWrites;
         const u64 num_words = NumWords();
-        u64* const cached_words = Array<Type::CachedCPU>();
+        const u64* const cached_words = Array<Type::CachedCPU>();
         u64* const untracked_words = Array<Type::Untracked>();
         u64* const cpu_words = Array<Type::CPU>();
         for (u64 word_index = 0; word_index < num_words; ++word_index) {
@@ -219,7 +219,7 @@ public:
             NotifyRasterizer<false>(word_index, untracked_words[word_index], cached_bits);
             untracked_words[word_index] |= cached_bits;
             cpu_words[word_index] |= cached_bits;
-            cached_words[word_index] = 0;
+            //cached_words[word_index] = 0;
         }
     }
 
