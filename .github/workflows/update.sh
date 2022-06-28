@@ -8,7 +8,7 @@ if [ -w $directory ] ; then
 
 	if [ "$answer" -eq 0 ]; then 
 		
-			$APPDIR/usr/bin/AppImageUpdate && "$directory"yuzu-x86_64.AppImage "$@"
+			$APPDIR/usr/bin/AppImageUpdate $APPIMAGE && "$directory" "$@"
 	
 	elif [ "$answer" -eq 1 ]; then
 		$APPDIR/AppRun-patched "$@"
