@@ -38,8 +38,8 @@ sdl2-config --version
 cd /yuzu
 ###############################################
 
-pip3 install conan --upgrade --no-cache-dir
-pip3 install wheel
+#pip3 install conan --upgrade --no-cache-dir
+#pip3 install wheel
 
 mkdir build && cd build 
 
@@ -57,6 +57,8 @@ cmake ..                                    \
   -DBUILD_DATE="$build_date"                \
   -DYUZU_USE_QT_WEB_ENGINE=OFF              \
   -DYUZU_USE_EXTERNAL_SDL2=OFF 		    \
+  -DYUZU_TESTS=OFF                          \ 
+  -DYUZU_USE_BUNDLED_VCPKG=ON               \
   -G Ninja 
 
 ninja
