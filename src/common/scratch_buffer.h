@@ -23,7 +23,10 @@ public:
           buffer{Common::make_unique_for_overwrite<T[]>(initial_capacity)} {}
 
     ~ScratchBuffer() = default;
+    ScratchBuffer(const ScratchBuffer&) = delete;
+    ScratchBuffer& operator=(const ScratchBuffer&) = delete;
     ScratchBuffer(ScratchBuffer&&) = default;
+    ScratchBuffer& operator=(ScratchBuffer&&) = default;
 
     /// This will only grow the buffer's capacity if size is greater than the current capacity.
     /// The previously held data will remain intact.
@@ -85,6 +88,18 @@ public:
 
     [[nodiscard]] size_t capacity() const noexcept {
         return buffer_capacity;
+    }
+
+    void swap(ScratchBuffer& other) {
+        std::swap(last_requested_size, other.last_requested_size);
+        std::swap(buffer_capacity, other.buffer_capacity);
+        std::swap(buffer, other.buffer);
+    }
+
+    void swap(ScratchBuffer&& other) {
+        std::swap(last_requested_size, other.last_requested_size);
+        std::swap(buffer_capacity, other.buffer_capacity);
+        std::swap(buffer, other.buffer);
     }
 
 private:

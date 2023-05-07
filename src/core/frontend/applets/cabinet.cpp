@@ -14,7 +14,7 @@ void DefaultCabinetApplet::Close() const {}
 
 void DefaultCabinetApplet::ShowCabinetApplet(
     const CabinetCallback& callback, const CabinetParameters& parameters,
-    std::shared_ptr<Service::NFP::NfpDevice> nfp_device) const {
+    std::shared_ptr<Service::NFC::NfcDevice> nfp_device) const {
     LOG_WARNING(Service_AM, "(STUBBED) called");
     callback(false, {});
 }

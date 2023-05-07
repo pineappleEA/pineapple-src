@@ -571,8 +571,8 @@ void GMainWindow::RegisterMetaTypes() {
 
     // Cabinet Applet
     qRegisterMetaType<Core::Frontend::CabinetParameters>("Core::Frontend::CabinetParameters");
-    qRegisterMetaType<std::shared_ptr<Service::NFP::NfpDevice>>(
-        "std::shared_ptr<Service::NFP::NfpDevice>");
+    qRegisterMetaType<std::shared_ptr<Service::NFC::NfcDevice>>(
+        "std::shared_ptr<Service::NFC::NfcDevice>");
 
     // Controller Applet
     qRegisterMetaType<Core::Frontend::ControllerParameters>("Core::Frontend::ControllerParameters");
@@ -600,7 +600,7 @@ void GMainWindow::RegisterMetaTypes() {
 }
 
 void GMainWindow::AmiiboSettingsShowDialog(const Core::Frontend::CabinetParameters& parameters,
-                                           std::shared_ptr<Service::NFP::NfpDevice> nfp_device) {
+                                           std::shared_ptr<Service::NFC::NfcDevice> nfp_device) {
     cabinet_applet =
         new QtAmiiboSettingsDialog(this, parameters, input_subsystem.get(), nfp_device);
     SCOPE_EXIT({

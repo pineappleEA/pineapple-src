@@ -23,9 +23,9 @@ namespace Ui {
 class QtAmiiboSettingsDialog;
 }
 
-namespace Service::NFP {
-class NfpDevice;
-} // namespace Service::NFP
+namespace Service::NFC {
+class NfcDevice;
+} // namespace Service::NFC
 
 class QtAmiiboSettingsDialog final : public QDialog {
     Q_OBJECT
@@ -33,7 +33,7 @@ class QtAmiiboSettingsDialog final : public QDialog {
 public:
     explicit QtAmiiboSettingsDialog(QWidget* parent, Core::Frontend::CabinetParameters parameters_,
                                     InputCommon::InputSubsystem* input_subsystem_,
-                                    std::shared_ptr<Service::NFP::NfpDevice> nfp_device_);
+                                    std::shared_ptr<Service::NFC::NfcDevice> nfp_device_);
     ~QtAmiiboSettingsDialog() override;
 
     int exec() override;
@@ -52,7 +52,7 @@ private:
     std::unique_ptr<Ui::QtAmiiboSettingsDialog> ui;
 
     InputCommon::InputSubsystem* input_subsystem;
-    std::shared_ptr<Service::NFP::NfpDevice> nfp_device;
+    std::shared_ptr<Service::NFC::NfcDevice> nfp_device;
 
     // Parameters sent in from the backend HLE applet.
     Core::Frontend::CabinetParameters parameters;
@@ -71,11 +71,11 @@ public:
     void Close() const override;
     void ShowCabinetApplet(const Core::Frontend::CabinetCallback& callback_,
                            const Core::Frontend::CabinetParameters& parameters,
-                           std::shared_ptr<Service::NFP::NfpDevice> nfp_device) const override;
+                           std::shared_ptr<Service::NFC::NfcDevice> nfp_device) const override;
 
 signals:
     void MainWindowShowAmiiboSettings(const Core::Frontend::CabinetParameters& parameters,
-                                      std::shared_ptr<Service::NFP::NfpDevice> nfp_device) const;
+                                      std::shared_ptr<Service::NFC::NfcDevice> nfp_device) const;
     void MainWindowRequestExit() const;
 
 private:

@@ -11,7 +11,7 @@
 #include "core/hle/service/am/am.h"
 #include "core/hle/service/am/applets/applet_cabinet.h"
 #include "core/hle/service/mii/mii_manager.h"
-#include "core/hle/service/nfp/nfp_device.h"
+#include "core/hle/service/nfc/common/device.h"
 
 namespace Service::AM::Applets {
 
@@ -72,10 +72,10 @@ void Cabinet::Execute() {
 
     // TODO: listen on all controllers
     if (nfp_device == nullptr) {
-        nfp_device = std::make_shared<Service::NFP::NfpDevice>(
+        nfp_device = std::make_shared<Service::NFC::NfcDevice>(
             system.HIDCore().GetFirstNpadId(), system, service_context, availability_change_event);
         nfp_device->Initialize();
-        nfp_device->StartDetection(Service::NFP::TagProtocol::All);
+        nfp_device->StartDetection(Service::NFC::NfcProtocol::All);
     }
 
     const Core::Frontend::CabinetParameters parameters{
@@ -106,20 +106,22 @@ void Cabinet::DisplayCompleted(bool apply_changes, std::string_view amiibo_name)
         Cancel();
     }
 
-    if (nfp_device->GetCurrentState() != Service::NFP::DeviceState::TagFound &&
-        nfp_device->GetCurrentState() != Service::NFP::DeviceState::TagMounted) {
+    if (nfp_device->GetCurrentState() != Service::NFC::DeviceState::TagFound &&
+        nfp_device->GetCurrentState() != Service::NFC::DeviceState::TagMounted) {
         Cancel();
     }
 
-    if (nfp_device->GetCurrentState() == Service::NFP::DeviceState::TagFound) {
-        nfp_device->Mount(Service::NFP::MountTarget::All);
+    if (nfp_device->GetCurrentState() == Service::NFC::DeviceState::TagFound) {
+        nfp_device->Mount(Service::NFP::ModelType::Amiibo, Service::NFP::MountTarget::All);
     }
 
     switch (applet_input_common.applet_mode) {
     case Service::NFP::CabinetMode::StartNicknameAndOwnerSettings: {
-        Service::NFP::AmiiboName name{};
-        std::memcpy(name.data(), amiibo_name.data(), std::min(amiibo_name.size(), name.size() - 1));
-        nfp_device->SetRegisterInfoPrivate(name);
+        Service::NFP::RegisterInfoPrivate register_info{};
+        std::memcpy(register_info.amiibo_name.data(), amiibo_name.data(),
+                    std::min(amiibo_name.size(), register_info.amiibo_name.size() - 1));
+
+        nfp_device->SetRegisterInfoPrivate(register_info);
         break;
     }
     case Service::NFP::CabinetMode::StartGameDataEraser:
@@ -139,7 +141,7 @@ void Cabinet::DisplayCompleted(bool apply_changes, std::string_view amiibo_name)
     applet_output.device_handle = applet_input_common.device_handle;
     applet_output.result = CabinetResult::Cancel;
     const auto reg_result = nfp_device->GetRegisterInfo(applet_output.register_info);
-    const auto tag_result = nfp_device->GetTagInfo(applet_output.tag_info);
+    const auto tag_result = nfp_device->GetTagInfo(applet_output.tag_info, false);
     nfp_device->Finalize();
 
     if (reg_result.IsSuccess()) {

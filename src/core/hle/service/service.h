@@ -142,7 +142,8 @@ template <typename Self>
 class ServiceFramework : public ServiceFrameworkBase {
 protected:
     /// Contains information about a request type which is handled by the service.
-    struct FunctionInfo : FunctionInfoBase {
+    template <typename T>
+    struct FunctionInfoTyped : FunctionInfoBase {
         // TODO(yuriks): This function could be constexpr, but clang is the only compiler that
         // doesn't emit an ICE or a wrong diagnostic because of the static_cast.
 
@@ -155,12 +156,13 @@ protected:
          *     the request
          * @param name_ human-friendly name for the request. Used mostly for logging purposes.
          */
-        FunctionInfo(u32 expected_header_, HandlerFnP<Self> handler_callback_, const char* name_)
+        FunctionInfoTyped(u32 expected_header_, HandlerFnP<T> handler_callback_, const char* name_)
             : FunctionInfoBase{
                   expected_header_,
                   // Type-erase member function pointer by casting it down to the base class.
                   static_cast<HandlerFnP<ServiceFrameworkBase>>(handler_callback_), name_} {}
     };
+    using FunctionInfo = FunctionInfoTyped<Self>;
 
     /**
      * Initializes the handler with no functions installed.
@@ -175,8 +177,8 @@ protected:
         : ServiceFrameworkBase(system_, service_name_, max_sessions_, Invoker) {}
 
     /// Registers handlers in the service.
-    template <std::size_t N>
-    void RegisterHandlers(const FunctionInfo (&functions)[N]) {
+    template <typename T = Self, std::size_t N>
+    void RegisterHandlers(const FunctionInfoTyped<T> (&functions)[N]) {
         RegisterHandlers(functions, N);
     }
 
@@ -184,13 +186,14 @@ protected:
      * Registers handlers in the service. Usually prefer using the other RegisterHandlers
      * overload in order to avoid needing to specify the array size.
      */
-    void RegisterHandlers(const FunctionInfo* functions, std::size_t n) {
+    template <typename T = Self>
+    void RegisterHandlers(const FunctionInfoTyped<T>* functions, std::size_t n) {
         RegisterHandlersBase(functions, n);
     }
 
     /// Registers handlers in the service.
-    template <std::size_t N>
-    void RegisterHandlersTipc(const FunctionInfo (&functions)[N]) {
+    template <typename T = Self, std::size_t N>
+    void RegisterHandlersTipc(const FunctionInfoTyped<T> (&functions)[N]) {
         RegisterHandlersTipc(functions, N);
     }
 
@@ -198,7 +201,8 @@ protected:
      * Registers handlers in the service. Usually prefer using the other RegisterHandlers
      * overload in order to avoid needing to specify the array size.
      */
-    void RegisterHandlersTipc(const FunctionInfo* functions, std::size_t n) {
+    template <typename T = Self>
+    void RegisterHandlersTipc(const FunctionInfoTyped<T>* functions, std::size_t n) {
         RegisterHandlersBaseTipc(functions, n);
     }
 

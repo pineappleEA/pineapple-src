@@ -1,5 +1,5 @@
 // SPDX-FileCopyrightText: Copyright 2022 yuzu Emulator Project
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -7,18 +7,19 @@
 
 namespace Service::NFP {
 
-constexpr Result DeviceNotFound(ErrorModule::NFP, 64);
-constexpr Result InvalidArgument(ErrorModule::NFP, 65);
-constexpr Result WrongApplicationAreaSize(ErrorModule::NFP, 68);
-constexpr Result WrongDeviceState(ErrorModule::NFP, 73);
-constexpr Result NfcDisabled(ErrorModule::NFP, 80);
-constexpr Result WriteAmiiboFailed(ErrorModule::NFP, 88);
-constexpr Result TagRemoved(ErrorModule::NFP, 97);
-constexpr Result RegistrationIsNotInitialized(ErrorModule::NFP, 120);
-constexpr Result ApplicationAreaIsNotInitialized(ErrorModule::NFP, 128);
-constexpr Result CorruptedData(ErrorModule::NFP, 144);
-constexpr Result WrongApplicationAreaId(ErrorModule::NFP, 152);
-constexpr Result ApplicationAreaExist(ErrorModule::NFP, 168);
-constexpr Result NotAnAmiibo(ErrorModule::NFP, 178);
+constexpr Result ResultDeviceNotFound(ErrorModule::NFP, 64);
+constexpr Result ResultInvalidArgument(ErrorModule::NFP, 65);
+constexpr Result ResultWrongApplicationAreaSize(ErrorModule::NFP, 68);
+constexpr Result ResultWrongDeviceState(ErrorModule::NFP, 73);
+constexpr Result ResultUnknown74(ErrorModule::NFC, 74);
+constexpr Result ResultNfcDisabled(ErrorModule::NFP, 80);
+constexpr Result ResultWriteAmiiboFailed(ErrorModule::NFP, 88);
+constexpr Result ResultTagRemoved(ErrorModule::NFP, 97);
+constexpr Result ResultRegistrationIsNotInitialized(ErrorModule::NFP, 120);
+constexpr Result ResultApplicationAreaIsNotInitialized(ErrorModule::NFP, 128);
+constexpr Result ResultCorruptedData(ErrorModule::NFP, 144);
+constexpr Result ResultWrongApplicationAreaId(ErrorModule::NFP, 152);
+constexpr Result ResultApplicationAreaExist(ErrorModule::NFP, 168);
+constexpr Result ResultNotAnAmiibo(ErrorModule::NFP, 178);
 
 } // namespace Service::NFP

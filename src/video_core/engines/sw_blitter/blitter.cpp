@@ -5,6 +5,7 @@
 #include <cmath>
 #include <vector>
 
+#include "common/scratch_buffer.h"
 #include "video_core/engines/sw_blitter/blitter.h"
 #include "video_core/engines/sw_blitter/converter.h"
 #include "video_core/memory_manager.h"
@@ -112,11 +113,11 @@ void Bilinear(std::span<const f32> input, std::span<f32> output, size_t src_widt
 } // namespace
 
 struct SoftwareBlitEngine::BlitEngineImpl {
-    std::vector<u8> tmp_buffer;
-    std::vector<u8> src_buffer;
-    std::vector<u8> dst_buffer;
-    std::vector<f32> intermediate_src;
-    std::vector<f32> intermediate_dst;
+    Common::ScratchBuffer<u8> tmp_buffer;
+    Common::ScratchBuffer<u8> src_buffer;
+    Common::ScratchBuffer<u8> dst_buffer;
+    Common::ScratchBuffer<f32> intermediate_src;
+    Common::ScratchBuffer<f32> intermediate_dst;
     ConverterFactory converter_factory;
 };
 
@@ -158,14 +159,14 @@ bool SoftwareBlitEngine::Blit(Fermi2D::Surface& src, Fermi2D::Surface& dst,
     const auto src_bytes_per_pixel = BytesPerBlock(PixelFormatFromRenderTargetFormat(src.format));
     const auto dst_bytes_per_pixel = BytesPerBlock(PixelFormatFromRenderTargetFormat(dst.format));
     const size_t src_size = get_surface_size(src, src_bytes_per_pixel);
-    impl->tmp_buffer.resize(src_size);
+    impl->tmp_buffer.resize_destructive(src_size);
     memory_manager.ReadBlock(src.Address(), impl->tmp_buffer.data(), src_size);
 
     const size_t src_copy_size = src_extent_x * src_extent_y * src_bytes_per_pixel;
 
     const size_t dst_copy_size = dst_extent_x * dst_extent_y * dst_bytes_per_pixel;
 
-    impl->src_buffer.resize(src_copy_size);
+    impl->src_buffer.resize_destructive(src_copy_size);
 
     const bool no_passthrough =
         src.format != dst.format || src_extent_x != dst_extent_x || src_extent_y != dst_extent_y;
@@ -177,8 +178,10 @@ bool SoftwareBlitEngine::Blit(Fermi2D::Surface& src, Fermi2D::Surface& dst,
 
     const auto convertion_phase_ir = [&]() {
         auto* input_converter = impl->converter_factory.GetFormatConverter(src.format);
-        impl->intermediate_src.resize((src_copy_size / src_bytes_per_pixel) * ir_components);
-        impl->intermediate_dst.resize((dst_copy_size / dst_bytes_per_pixel) * ir_components);
+        impl->intermediate_src.resize_destructive((src_copy_size / src_bytes_per_pixel) *
+                                                  ir_components);
+        impl->intermediate_dst.resize_destructive((dst_copy_size / dst_bytes_per_pixel) *
+                                                  ir_components);
         input_converter->ConvertTo(impl->src_buffer, impl->intermediate_src);
 
         if (config.filter != Fermi2D::Filter::Bilinear) {
@@ -195,7 +198,7 @@ bool SoftwareBlitEngine::Blit(Fermi2D::Surface& src, Fermi2D::Surface& dst,
 
     // Do actual Blit
 
-    impl->dst_buffer.resize(dst_copy_size);
+    impl->dst_buffer.resize_destructive(dst_copy_size);
     if (src.linear == Fermi2D::MemoryLayout::BlockLinear) {
         UnswizzleSubrect(impl->src_buffer, impl->tmp_buffer, src_bytes_per_pixel, src.width,
                          src.height, src.depth, config.src_x0, config.src_y0, src_extent_x,
@@ -218,7 +221,7 @@ bool SoftwareBlitEngine::Blit(Fermi2D::Surface& src, Fermi2D::Surface& dst,
     }
 
     const size_t dst_size = get_surface_size(dst, dst_bytes_per_pixel);
-    impl->tmp_buffer.resize(dst_size);
+    impl->tmp_buffer.resize_destructive(dst_size);
     memory_manager.ReadBlock(dst.Address(), impl->tmp_buffer.data(), dst_size);
 
     if (dst.linear == Fermi2D::MemoryLayout::BlockLinear) {

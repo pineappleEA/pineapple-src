@@ -554,21 +554,22 @@ add_library(core STATIC
     hle/service/mnpp/mnpp_app.h
     hle/service/ncm/ncm.cpp
     hle/service/ncm/ncm.h
-    hle/service/nfc/mifare_user.cpp
-    hle/service/nfc/mifare_user.h
+    hle/service/nfc/common/amiibo_crypto.cpp
+    hle/service/nfc/common/amiibo_crypto.h
+    hle/service/nfc/common/device.cpp
+    hle/service/nfc/common/device.h
+    hle/service/nfc/common/device_manager.cpp
+    hle/service/nfc/common/device_manager.h
+    hle/service/nfc/mifare_result.h
+    hle/service/nfc/mifare_types.h
     hle/service/nfc/nfc.cpp
     hle/service/nfc/nfc.h
-    hle/service/nfc/nfc_device.cpp
-    hle/service/nfc/nfc_device.h
+    hle/service/nfc/nfc_interface.cpp
+    hle/service/nfc/nfc_interface.h
     hle/service/nfc/nfc_result.h
-    hle/service/nfc/nfc_user.cpp
-    hle/service/nfc/nfc_user.h
-    hle/service/nfp/amiibo_crypto.cpp
-    hle/service/nfp/amiibo_crypto.h
+    hle/service/nfc/nfc_types.h
     hle/service/nfp/nfp.cpp
     hle/service/nfp/nfp.h
-    hle/service/nfp/nfp_device.cpp
-    hle/service/nfp/nfp_device.h
     hle/service/nfp/nfp_interface.cpp
     hle/service/nfp/nfp_interface.h
     hle/service/nfp/nfp_result.h

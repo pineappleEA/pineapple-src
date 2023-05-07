@@ -7,32 +7,19 @@
 
 #include "common/swap.h"
 #include "core/hle/service/mii/types.h"
+#include "core/hle/service/nfc/nfc_types.h"
 
 namespace Service::NFP {
 static constexpr std::size_t amiibo_name_length = 0xA;
 static constexpr std::size_t application_id_version_offset = 0x1c;
 static constexpr std::size_t counter_limit = 0xffff;
 
-enum class ServiceType : u32 {
-    User,
-    Debug,
-    System,
-};
-
-enum class DeviceState : u32 {
-    Initialized,
-    SearchingForTag,
-    TagFound,
-    TagRemoved,
-    TagMounted,
-    Unavailable,
-    Finalized,
-};
-
+// This is nn::nfp::ModelType
 enum class ModelType : u32 {
     Amiibo,
 };
 
+// This is nn::nfp::MountTarget
 enum class MountTarget : u32 {
     None,
     Rom,
@@ -72,35 +59,6 @@ enum class AmiiboSeries : u8 {
     Diablo,
 };
 
-enum class TagType : u32 {
-    None,
-    Type1, // ISO14443A RW 96-2k bytes 106kbit/s
-    Type2, // ISO14443A RW/RO 540 bytes 106kbit/s
-    Type3, // Sony Felica RW/RO 2k bytes 212kbit/s
-    Type4, // ISO14443A RW/RO 4k-32k bytes 424kbit/s
-    Type5, // ISO15693 RW/RO 540 bytes 106kbit/s
-};
-
-enum class PackedTagType : u8 {
-    None,
-    Type1, // ISO14443A RW 96-2k bytes 106kbit/s
-    Type2, // ISO14443A RW/RO 540 bytes 106kbit/s
-    Type3, // Sony Felica RW/RO 2k bytes 212kbit/s
-    Type4, // ISO14443A RW/RO 4k-32k bytes 424kbit/s
-    Type5, // ISO15693 RW/RO 540 bytes 106kbit/s
-};
-
-// Verify this enum. It might be completely wrong default protocol is 0x48
-enum class TagProtocol : u32 {
-    None,
-    TypeA = 1U << 0, // ISO14443A
-    TypeB = 1U << 1, // ISO14443B
-    TypeF = 1U << 2, // Sony Felica
-    Unknown1 = 1U << 3,
-    Unknown2 = 1U << 5,
-    All = 0xFFFFFFFFU,
-};
-
 enum class AppAreaVersion : u8 {
     Nintendo3DS = 0,
     NintendoWiiU = 1,
@@ -115,6 +73,11 @@ enum class BreakType : u32 {
     Unknown2,
 };
 
+enum class WriteType : u32 {
+    Unknown0,
+    Unknown1,
+};
+
 enum class CabinetMode : u8 {
     StartNicknameAndOwnerSettings,
     StartGameDataEraser,
@@ -122,27 +85,16 @@ enum class CabinetMode : u8 {
     StartFormatter,
 };
 
-enum class MifareCmd : u8 {
-    AuthA = 0x60,
-    AuthB = 0x61,
-    Read = 0x30,
-    Write = 0xA0,
-    Transfer = 0xB0,
-    Decrement = 0xC0,
-    Increment = 0xC1,
-    Store = 0xC2
-};
-
-using UniqueSerialNumber = std::array<u8, 7>;
 using LockBytes = std::array<u8, 2>;
 using HashData = std::array<u8, 0x20>;
 using ApplicationArea = std::array<u8, 0xD8>;
 using AmiiboName = std::array<char, (amiibo_name_length * 4) + 1>;
-using DataBlock = std::array<u8, 0x10>;
-using KeyData = std::array<u8, 0x6>;
+
+// This is nn::nfp::TagInfo
+using TagInfo = NFC::TagInfo;
 
 struct TagUuid {
-    UniqueSerialNumber uid;
+    NFC::UniqueSerialNumber uid;
     u8 nintendo_id;
     LockBytes lock_bytes;
 };
@@ -243,7 +195,7 @@ struct AmiiboModelInfo {
     AmiiboType amiibo_type;
     u16_be model_number;
     AmiiboSeries series;
-    PackedTagType tag_type;
+    NFC::PackedTagType tag_type;
     INSERT_PADDING_BYTES(0x4); // Unknown
 };
 static_assert(sizeof(AmiiboModelInfo) == 0xC, "AmiiboModelInfo is an invalid size");
@@ -298,7 +250,7 @@ struct NTAG215File {
     u32_be register_info_crc;
     ApplicationArea application_area; // Encrypted Game data
     HashData hmac_tag;                // Hash
-    UniqueSerialNumber uid;           // Unique serial number
+    NFC::UniqueSerialNumber uid;      // Unique serial number
     u8 nintendo_id;                   // Tag UUID
     AmiiboModelInfo model_info;
     HashData keygen_salt;     // Salt
@@ -326,17 +278,7 @@ static_assert(sizeof(EncryptedNTAG215File) == sizeof(NTAG215File),
 static_assert(std::is_trivially_copyable_v<EncryptedNTAG215File>,
               "EncryptedNTAG215File must be trivially copyable.");
 
-struct TagInfo {
-    UniqueSerialNumber uuid;
-    INSERT_PADDING_BYTES(0x3);
-    u8 uuid_length;
-    INSERT_PADDING_BYTES(0x15);
-    TagProtocol protocol;
-    TagType tag_type;
-    INSERT_PADDING_BYTES(0x30);
-};
-static_assert(sizeof(TagInfo) == 0x58, "TagInfo is an invalid size");
-
+// This is nn::nfp::CommonInfo
 struct CommonInfo {
     WriteDate last_write_date;
     u16 write_counter;
@@ -347,6 +289,7 @@ struct CommonInfo {
 };
 static_assert(sizeof(CommonInfo) == 0x40, "CommonInfo is an invalid size");
 
+// This is nn::nfp::ModelInfo
 struct ModelInfo {
     u16 character_id;
     u8 character_variant;
@@ -357,6 +300,7 @@ struct ModelInfo {
 };
 static_assert(sizeof(ModelInfo) == 0x40, "ModelInfo is an invalid size");
 
+// This is nn::nfp::RegisterInfo
 struct RegisterInfo {
     Service::Mii::CharInfo mii_char_info;
     WriteDate creation_date;
@@ -366,6 +310,7 @@ struct RegisterInfo {
 };
 static_assert(sizeof(RegisterInfo) == 0x100, "RegisterInfo is an invalid size");
 
+// This is nn::nfp::RegisterInfoPrivate
 struct RegisterInfoPrivate {
     Service::Mii::MiiStoreData mii_store_data;
     WriteDate creation_date;
@@ -375,12 +320,13 @@ struct RegisterInfoPrivate {
 };
 static_assert(sizeof(RegisterInfoPrivate) == 0x100, "RegisterInfoPrivate is an invalid size");
 
+// This is nn::nfp::AdminInfo
 struct AdminInfo {
     u64 application_id;
     u32 application_area_id;
     u16 crc_change_counter;
     u8 flags;
-    PackedTagType tag_type;
+    NFC::PackedTagType tag_type;
     AppAreaVersion app_area_version;
     INSERT_PADDING_BYTES(0x7);
     INSERT_PADDING_BYTES(0x28);
@@ -411,7 +357,7 @@ struct NfpData {
     u32 access_id;
     u16 settings_crc_counter;
     u8 font_region;
-    PackedTagType tag_type;
+    NFC::PackedTagType tag_type;
     AppAreaVersion console_type;
     u8 application_id_byte;
     INSERT_PADDING_BYTES(0x2E);
@@ -419,38 +365,5 @@ struct NfpData {
 };
 static_assert(sizeof(NfpData) == 0x298, "NfpData is an invalid size");
 #pragma pack()
-
-struct SectorKey {
-    MifareCmd command;
-    u8 unknown; // Usually 1
-    INSERT_PADDING_BYTES(0x6);
-    KeyData sector_key;
-    INSERT_PADDING_BYTES(0x2);
-};
-static_assert(sizeof(SectorKey) == 0x10, "SectorKey is an invalid size");
-
-struct MifareReadBlockParameter {
-    u8 sector_number;
-    INSERT_PADDING_BYTES(0x7);
-    SectorKey sector_key;
-};
-static_assert(sizeof(MifareReadBlockParameter) == 0x18,
-              "MifareReadBlockParameter is an invalid size");
-
-struct MifareReadBlockData {
-    DataBlock data;
-    u8 sector_number;
-    INSERT_PADDING_BYTES(0x7);
-};
-static_assert(sizeof(MifareReadBlockData) == 0x18, "MifareReadBlockData is an invalid size");
-
-struct MifareWriteBlockParameter {
-    DataBlock data;
-    u8 sector_number;
-    INSERT_PADDING_BYTES(0x7);
-    SectorKey sector_key;
-};
-static_assert(sizeof(MifareWriteBlockParameter) == 0x28,
-              "MifareWriteBlockParameter is an invalid size");
 
 } // namespace Service::NFP

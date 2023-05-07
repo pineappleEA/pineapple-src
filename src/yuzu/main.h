@@ -93,9 +93,9 @@ enum class SwkbdReplyType : u32;
 enum class WebExitReason : u32;
 } // namespace Service::AM::Applets
 
-namespace Service::NFP {
-class NfpDevice;
-} // namespace Service::NFP
+namespace Service::NFC {
+class NfcDevice;
+} // namespace Service::NFC
 
 namespace Ui {
 class MainWindow;
@@ -188,7 +188,7 @@ public slots:
     void OnExit();
     void OnSaveConfig();
     void AmiiboSettingsShowDialog(const Core::Frontend::CabinetParameters& parameters,
-                                  std::shared_ptr<Service::NFP::NfpDevice> nfp_device);
+                                  std::shared_ptr<Service::NFC::NfcDevice> nfp_device);
     void AmiiboSettingsRequestExit();
     void ControllerSelectorReconfigureControllers(
         const Core::Frontend::ControllerParameters& parameters);

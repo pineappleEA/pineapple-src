@@ -8,7 +8,7 @@
 
 #include "common/assert.h"
 #include "common/string_util.h"
-#include "core/hle/service/nfp/nfp_device.h"
+#include "core/hle/service/nfc/common/device.h"
 #include "core/hle/service/nfp/nfp_result.h"
 #include "input_common/drivers/virtual_amiibo.h"
 #include "input_common/main.h"
@@ -22,7 +22,7 @@
 QtAmiiboSettingsDialog::QtAmiiboSettingsDialog(QWidget* parent,
                                                Core::Frontend::CabinetParameters parameters_,
                                                InputCommon::InputSubsystem* input_subsystem_,
-                                               std::shared_ptr<Service::NFP::NfpDevice> nfp_device_)
+                                               std::shared_ptr<Service::NFC::NfcDevice> nfp_device_)
     : QDialog(parent), ui(std::make_unique<Ui::QtAmiiboSettingsDialog>()),
       input_subsystem{input_subsystem_}, nfp_device{std::move(nfp_device_)},
       parameters(std::move(parameters_)) {
@@ -52,11 +52,11 @@ void QtAmiiboSettingsDialog::LoadInfo() {
         return;
     }
 
-    if (nfp_device->GetCurrentState() != Service::NFP::DeviceState::TagFound &&
-        nfp_device->GetCurrentState() != Service::NFP::DeviceState::TagMounted) {
+    if (nfp_device->GetCurrentState() != Service::NFC::DeviceState::TagFound &&
+        nfp_device->GetCurrentState() != Service::NFC::DeviceState::TagMounted) {
         return;
     }
-    nfp_device->Mount(Service::NFP::MountTarget::All);
+    nfp_device->Mount(Service::NFP::ModelType::Amiibo, Service::NFP::MountTarget::All);
 
     LoadAmiiboInfo();
     LoadAmiiboData();
@@ -261,7 +261,7 @@ void QtAmiiboSettings::Close() const {
 void QtAmiiboSettings::ShowCabinetApplet(
     const Core::Frontend::CabinetCallback& callback_,
     const Core::Frontend::CabinetParameters& parameters,
-    std::shared_ptr<Service::NFP::NfpDevice> nfp_device) const {
+    std::shared_ptr<Service::NFC::NfcDevice> nfp_device) const {
     callback = std::move(callback_);
     emit MainWindowShowAmiiboSettings(parameters, nfp_device);
 }

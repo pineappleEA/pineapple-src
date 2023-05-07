@@ -7,9 +7,9 @@
 #include "core/frontend/applets/applet.h"
 #include "core/hle/service/nfp/nfp_types.h"
 
-namespace Service::NFP {
-class NfpDevice;
-} // namespace Service::NFP
+namespace Service::NFC {
+class NfcDevice;
+} // namespace Service::NFC
 
 namespace Core::Frontend {
 
@@ -26,14 +26,14 @@ public:
     virtual ~CabinetApplet();
     virtual void ShowCabinetApplet(const CabinetCallback& callback,
                                    const CabinetParameters& parameters,
-                                   std::shared_ptr<Service::NFP::NfpDevice> nfp_device) const = 0;
+                                   std::shared_ptr<Service::NFC::NfcDevice> nfp_device) const = 0;
 };
 
 class DefaultCabinetApplet final : public CabinetApplet {
 public:
     void Close() const override;
     void ShowCabinetApplet(const CabinetCallback& callback, const CabinetParameters& parameters,
-                           std::shared_ptr<Service::NFP::NfpDevice> nfp_device) const override;
+                           std::shared_ptr<Service::NFC::NfcDevice> nfp_device) const override;
 };
 
 } // namespace Core::Frontend

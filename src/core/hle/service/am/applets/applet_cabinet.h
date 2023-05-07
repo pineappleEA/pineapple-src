@@ -19,8 +19,8 @@ namespace Core {
 class System;
 } // namespace Core
 
-namespace Service::NFP {
-class NfpDevice;
+namespace Service::NFC {
+class NfcDevice;
 }
 
 namespace Service::AM::Applets {
@@ -96,7 +96,7 @@ private:
     Core::System& system;
 
     bool is_complete{false};
-    std::shared_ptr<Service::NFP::NfpDevice> nfp_device;
+    std::shared_ptr<Service::NFC::NfcDevice> nfp_device;
     Kernel::KEvent* availability_change_event;
     KernelHelpers::ServiceContext service_context;
     StartParamForAmiiboSettings applet_input_common{};

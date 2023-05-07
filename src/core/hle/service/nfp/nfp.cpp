@@ -13,7 +13,7 @@ class IUser final : public Interface {
 public:
     explicit IUser(Core::System& system_) : Interface(system_, "NFP:IUser") {
         // clang-format off
-        static const FunctionInfo functions[] = {
+        static const FunctionInfoTyped<IUser> functions[] = {
             {0, &IUser::Initialize, "Initialize"},
             {1, &IUser::Finalize, "Finalize"},
             {2, &IUser::ListDevices, "ListDevices"},
@@ -50,7 +50,7 @@ class ISystem final : public Interface {
 public:
     explicit ISystem(Core::System& system_) : Interface(system_, "NFP:ISystem") {
         // clang-format off
-        static const FunctionInfo functions[] = {
+        static const FunctionInfoTyped<ISystem> functions[] = {
             {0, &ISystem::InitializeSystem, "InitializeSystem"},
             {1, &ISystem::FinalizeSystem, "FinalizeSystem"},
             {2, &ISystem::ListDevices, "ListDevices"},
@@ -89,7 +89,7 @@ class IDebug final : public Interface {
 public:
     explicit IDebug(Core::System& system_) : Interface(system_, "NFP:IDebug") {
         // clang-format off
-        static const FunctionInfo functions[] = {
+        static const FunctionInfoTyped<IDebug> functions[] = {
             {0, &IDebug::InitializeDebug, "InitializeDebug"},
             {1, &IDebug::FinalizeDebug, "FinalizeDebug"},
             {2, &IDebug::ListDevices, "ListDevices"},
@@ -126,9 +126,9 @@ public:
             {201, &IDebug::SetAll, "SetAll"},
             {202, &IDebug::FlushDebug, "FlushDebug"},
             {203, &IDebug::BreakTag, "BreakTag"},
-            {204, nullptr, "ReadBackupData"},
-            {205, nullptr, "WriteBackupData"},
-            {206, nullptr, "WriteNtf"},
+            {204, &IDebug::ReadBackupData, "ReadBackupData"},
+            {205, &IDebug::WriteBackupData, "WriteBackupData"},
+            {206, &IDebug::WriteNtf, "WriteNtf"},
         };
         // clang-format on
 
@@ -152,16 +152,10 @@ private:
     void CreateUserInterface(HLERequestContext& ctx) {
         LOG_DEBUG(Service_NFP, "called");
 
-        if (user_interface == nullptr) {
-            user_interface = std::make_shared<IUser>(system);
-        }
-
         IPC::ResponseBuilder rb{ctx, 2, 0, 1};
         rb.Push(ResultSuccess);
-        rb.PushIpcInterface<IUser>(user_interface);
+        rb.PushIpcInterface<IUser>(system);
     }
-
-    std::shared_ptr<IUser> user_interface;
 };
 
 class ISystemManager final : public ServiceFramework<ISystemManager> {
@@ -180,16 +174,10 @@ private:
     void CreateSystemInterface(HLERequestContext& ctx) {
         LOG_DEBUG(Service_NFP, "called");
 
-        if (system_interface == nullptr) {
-            system_interface = std::make_shared<ISystem>(system);
-        }
-
         IPC::ResponseBuilder rb{ctx, 2, 0, 1};
         rb.Push(ResultSuccess);
-        rb.PushIpcInterface<ISystem>(system_interface);
+        rb.PushIpcInterface<ISystem>(system);
     }
-
-    std::shared_ptr<ISystem> system_interface;
 };
 
 class IDebugManager final : public ServiceFramework<IDebugManager> {
@@ -208,16 +196,10 @@ private:
     void CreateDebugInterface(HLERequestContext& ctx) {
         LOG_DEBUG(Service_NFP, "called");
 
-        if (system_interface == nullptr) {
-            system_interface = std::make_shared<IDebug>(system);
-        }
-
         IPC::ResponseBuilder rb{ctx, 2, 0, 1};
         rb.Push(ResultSuccess);
-        rb.PushIpcInterface<IDebug>(system_interface);
+        rb.PushIpcInterface<IDebug>(system);
     }
-
-    std::shared_ptr<IDebug> system_interface;
 };
 
 void LoopProcess(Core::System& system) {

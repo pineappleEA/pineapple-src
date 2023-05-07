@@ -95,6 +95,7 @@ QtProfileSelectionDialog::QtProfileSelectionDialog(
     scroll_area->setLayout(layout);
 
     connect(tree_view, &QTreeView::clicked, this, &QtProfileSelectionDialog::SelectUser);
+    connect(tree_view, &QTreeView::doubleClicked, this, &QtProfileSelectionDialog::accept);
     connect(controller_navigation, &ControllerNavigation::TriggerKeyboardEvent,
             [this](Qt::Key key) {
                 if (!this->isActiveWindow()) {
