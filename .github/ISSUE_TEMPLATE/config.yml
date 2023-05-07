@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: yuzu Discord
+    url: https://discord.com/invite/u77vRWY
+    about: If you are experiencing an issue with yuzu, and you need tech support, or if you have a general question, try asking in the official yuzu Discord linked here. Piracy is not allowed.
+  - name: Community forums
+    url: https://community.citra-emu.org
+    about: This is an alternative place for tech support, however helpers there are not as active.

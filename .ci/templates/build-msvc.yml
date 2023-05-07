@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+parameters:
+  artifactSource: 'true'
+  cache: 'false'
+  version: ''
+
+steps:
+- script: choco install vulkan-sdk
+  displayName: 'Install vulkan-sdk'
+- script: refreshenv && mkdir build && cd build && cmake -E env CXXFLAGS="/Gw /GA /Gr /Ob2" cmake -G "Visual Studio 17 2022" -A x64 -DCMAKE_POLICY_DEFAULT_CMP0069=NEW -DYUZU_ENABLE_LTO=ON -DYUZU_USE_BUNDLED_QT=1 -DYUZU_USE_BUNDLED_SDL2=1 -DYUZU_USE_QT_WEB_ENGINE=ON -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=ON -DYUZU_ENABLE_COMPATIBILITY_REPORTING=${COMPAT} -DYUZU_TESTS=OFF -DUSE_DISCORD_PRESENCE=ON -DENABLE_QT_TRANSLATION=ON -DDISPLAY_VERSION=${{ parameters['version'] }} -DCMAKE_BUILD_TYPE=Release -DYUZU_CRASH_DUMPS=ON .. && cd ..
+  displayName: 'Configure CMake'
+- task: MSBuild@1
+  displayName: 'Build'
+  inputs:
+    solution: 'build/yuzu.sln'
+    maximumCpuCount: true
+    configuration: release
+- task: PowerShell@2
+  displayName: 'Package Artifacts'
+  inputs:
+    targetType: 'filePath'
+    filePath: './.ci/scripts/windows/upload.ps1'
+    arguments: '$(BuildName)'
+- publish: artifacts
+  artifact: 'yuzu-$(BuildName)-windows-msvc'
+  displayName: 'Upload Artifacts'

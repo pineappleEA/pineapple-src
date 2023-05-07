@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+steps:
+- ${{ if eq(parameters.artifactSource, 'true') }}:
+  - template: ./retrieve-artifact-source.yml
+- ${{ if ne(parameters.artifactSource, 'true') }}:
+  - template: ./retrieve-master-source.yml
+    parameters:
+      needSubmodules: $(parameters.needSubmodules)

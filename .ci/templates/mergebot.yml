@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+parameters:
+  matchLabel: 'dummy-merge'
+
+steps:
+  - script: mkdir $(System.DefaultWorkingDirectory)/patches && pip install requests urllib3
+    displayName: 'Prepare Environment'
+  - script: chmod a+x $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh && $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh
+    displayName: 'Apply Git Configuration'
+  - task: PythonScript@0
+    displayName: 'Discover, Download, and Apply Patches'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '.ci/scripts/merge/apply-patches-by-label.py'
+      arguments: '${{ parameters.matchLabel }} Tagged patches'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'

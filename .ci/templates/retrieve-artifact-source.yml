@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+steps:
+- checkout: none
+- task: DownloadPipelineArtifact@2
+  displayName: 'Download Source'
+  inputs:
+    artifactName: 'yuzu-$(BuildName)-source'
+    buildType: 'current'
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+- script: rm -rf $(System.DefaultWorkingDirectory) && mkdir $(System.DefaultWorkingDirectory)
+  displayName: 'Clean Working Directory'
+- task: ExtractFiles@1
+  displayName: 'Prepare Source'
+  inputs:
+    archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/*.7z'
+    destinationFolder: '$(System.DefaultWorkingDirectory)'
+    cleanDestinationFolder: false

@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+steps:
+  - template: ./release-download.yml
+  - task: GitHubRelease@0
+    displayName: 'GitHub Release'
+    inputs:
+      action: 'create'
+      title: '$(ReleasePrefix) $(DisplayVersion)'
+      assets: '$(Build.ArtifactStagingDirectory)/*'
+      gitHubConnection: $(GitHubReleaseConnectionName)
+      repositoryName: '$(Build.Repository.Name)'
+      target: '$(Build.SourceVersion)'
+      tagSource: manual
+      tag: $(BuildName)-$(DisplayPrefix)-$(DisplayVersion)

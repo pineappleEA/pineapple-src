@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+jobs:
+- job: merge
+  displayName: 'pull requests'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - checkout: self
+    submodules: recursive
+  - template: ./mergebot.yml
+    parameters:
+      matchLabel: '$(BuildName)-merge'
+  - task: ArchiveFiles@2
+    displayName: 'Package Source'
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+      includeRootFolder: false
+      archiveType: '7z'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/yuzu-$(BuildName)-source.7z'
+  - task: PublishPipelineArtifact@1
+    displayName: 'Upload Artifacts'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)/yuzu-$(BuildName)-source.7z'
+      artifact: 'yuzu-$(BuildName)-source'
+      replaceExistingArchive: true
+- job: upload_source
+  displayName: 'upload'
+  dependsOn: merge
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+  - template: ./sync-source.yml
+    parameters:
+      artifactSource: 'true'
+      needSubmodules: 'true'
+  - script: chmod a+x $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh && $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh
+    displayName: 'Apply Git Configuration'
+  - script: git remote add other $(GitRepoPushChangesURL)
+    displayName: 'Register Repository'
+  - script: git push --force other HEAD:$(GitPushBranch)
+    displayName: 'Update Code'

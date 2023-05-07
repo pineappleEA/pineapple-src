@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+parameters:
+  artifactSource: 'true'
+  cache: 'false'
+  version: ''
+
+steps:
+- task: DockerInstaller@0
+  displayName: 'Prepare Environment'
+  inputs:
+    dockerVersion: '17.09.0-ce'
+- task: CacheBeta@0
+  displayName: 'Cache Build System'
+  inputs:
+    key: yuzu-v1-$(BuildName)-$(BuildSuffix)-$(CacheSuffix)
+    path: $(System.DefaultWorkingDirectory)/ccache
+    cacheHitVar: CACHE_RESTORED
+- script: chmod a+x ./.ci/scripts/$(ScriptFolder)/exec.sh && ./.ci/scripts/$(ScriptFolder)/exec.sh ${{ parameters['version'] }}
+  displayName: 'Build'
+- script: chmod a+x ./.ci/scripts/$(ScriptFolder)/upload.sh && RELEASE_NAME=$(BuildName) ./.ci/scripts/$(ScriptFolder)/upload.sh
+  displayName: 'Package Artifacts'
+- publish: artifacts
+  artifact: 'yuzu-$(BuildName)-$(BuildSuffix)'
+  displayName: 'Upload Artifacts'

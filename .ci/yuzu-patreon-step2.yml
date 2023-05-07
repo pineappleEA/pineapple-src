@@ -1,0 +1,59 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+trigger:
+- master
+
+variables:
+  DisplayVersion: $[counter(variables['DisplayPrefix'], 1)]
+
+stages:
+- stage: build
+  displayName: 'build'
+  jobs:
+  - job: linux
+    timeoutInMinutes: 120
+    displayName: 'linux'
+    pool:
+      vmImage: ubuntu-latest
+    strategy:
+      maxParallel: 10
+      matrix:
+        linux:
+          BuildSuffix: 'linux'
+          ScriptFolder: 'linux'
+    steps:
+    - template: ./templates/sync-source.yml
+      parameters:
+        artifactSource: $(parameters.artifactSource)
+        needSubmodules: 'true'
+    - template: ./templates/build-single.yml
+      parameters:
+        artifactSource: 'false'
+        cache: $(parameters.cache)
+        version: $(DisplayVersion)
+  - job: msvc
+    timeoutInMinutes: 120
+    displayName: 'windows'
+    pool:
+      vmImage: windows-2022
+    steps:
+    - template: ./templates/sync-source.yml
+      parameters:
+        artifactSource: $(parameters.artifactSource)
+        needSubmodules: 'true'
+    - template: ./templates/build-msvc.yml
+      parameters:
+        artifactSource: 'false'
+        cache: $(parameters.cache)
+        version: $(DisplayVersion)
+- stage: release
+  displayName: 'release'
+  dependsOn: build
+  jobs:
+    - job: release
+      displayName: 'source'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - template: ./templates/release-private-tag.yml

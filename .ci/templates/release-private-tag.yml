@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+steps:
+  - script: chmod a+x $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh && $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh
+    displayName: 'Apply Git Configuration'
+  - script: git tag -a $(BuildName)-$(DisplayPrefix)-$(DisplayVersion) -m "yuzu $(BuildName) $(Build.BuildNumber) $(Build.DefinitionName) $(DisplayPrefix)-$(DisplayVersion)"
+    displayName: 'Tag Source'
+  - script: git remote add other $(GitRepoPushChangesURL)
+    displayName: 'Register Repository'
+  - script: git push other $(BuildName)-$(DisplayPrefix)-$(DisplayVersion)
+    displayName: 'Update Code'

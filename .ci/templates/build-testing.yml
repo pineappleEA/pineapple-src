@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+parameters:
+  version: ''
+
+jobs:
+- job: build_test
+  displayName: 'testing'
+  pool:
+    vmImage: ubuntu-latest
+  strategy:
+    maxParallel: 5
+    matrix:
+      windows:
+        BuildSuffix: 'windows-testing'
+        ScriptFolder: 'windows'
+  steps:
+  - script: sudo apt-get update && sudo apt-get --only-upgrade -y install python3-pip && pip install requests urllib3
+    displayName: 'Prepare Environment'
+  - task: PythonScript@0
+    condition: eq(variables['Build.Reason'], 'PullRequest')
+    displayName: 'Determine Testing Status'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '.ci/scripts/merge/check-label-presence.py'
+      arguments: '$(System.PullRequest.PullRequestNumber) create-testing-build'
+  - ${{ if eq(variables.enabletesting, 'true') }}:
+    - template: ./sync-source.yml
+      parameters:
+        artifactSource: $(parameters.artifactSource)
+        needSubmodules: 'true'
+    - template: ./mergebot.yml
+      parameters:
+        matchLabel: 'testing-merge'
+    - template: ./build-single.yml
+      parameters:
+        artifactSource: 'false'
+        cache: 'false'
+        version: $(parameters.version)

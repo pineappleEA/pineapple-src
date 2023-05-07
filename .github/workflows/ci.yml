@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2021 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+name: yuzu-ci
+
+on:
+  push:
+    branches: [ master ]
+    tags: [ "*" ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  transifex:
+    runs-on: ubuntu-latest
+    container: yuzuemu/build-environments:linux-transifex
+    if: ${{ github.repository == 'yuzu-emu/yuzu' && !github.head_ref }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Update Translation
+        run: ./.ci/scripts/transifex/docker.sh
+        env:
+          TX_TOKEN: ${{ secrets.TRANSIFEX_API_TOKEN }}
+
+  reuse:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'yuzu-emu/yuzu' }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: fsfe/reuse-action@v1

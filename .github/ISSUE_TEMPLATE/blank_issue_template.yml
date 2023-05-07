@@ -1,0 +1,10 @@
+name: New Issue (Developers Only)
+description: A blank issue template for developers only. If you are not a developer, do not use this issue template. Your issue WILL BE CLOSED if you do not use the appropriate issue template.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **If you are not a developer, do not use this issue template. Your issue WILL BE CLOSED if you do not use the appropriate issue template.**
+  - type: textarea
+    attributes:
+      label: "Issue"

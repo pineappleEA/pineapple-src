@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+parameters:
+  version: ''
+
+jobs:
+- job: build
+  displayName: 'standard'
+  pool:
+    vmImage: ubuntu-latest
+  strategy:
+    maxParallel: 10
+    matrix:
+      windows:
+        BuildSuffix: 'windows-mingw'
+        ScriptFolder: 'windows'
+      clang:
+        BuildSuffix: 'clang'
+        ScriptFolder: 'clang'
+      linux:
+        BuildSuffix: 'linux'
+        ScriptFolder: 'linux'
+  steps:
+  - template: ./sync-source.yml
+    parameters:
+      artifactSource: $(parameters.artifactSource)
+      needSubmodules: 'true'
+  - template: ./build-single.yml
+    parameters:
+      artifactSource: 'false'
+      cache: $(parameters.cache)
+      version: $(parameters.version)

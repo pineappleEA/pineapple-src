@@ -1,0 +1,75 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+trigger:
+- master
+
+variables:
+  DisplayVersion: $[counter(variables['DisplayPrefix'], 1)]
+
+stages:
+- stage: format
+  displayName: 'format'
+  jobs:
+  - job: format
+    displayName: 'clang'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - template: ./templates/format-check.yml
+- stage: build
+  dependsOn: format
+  displayName: 'build'
+  jobs:
+  - job: build
+    timeoutInMinutes: 120
+    displayName: 'standard'
+    pool:
+      vmImage: ubuntu-latest
+    strategy:
+      maxParallel: 10
+      matrix:
+        linux:
+          BuildSuffix: 'linux'
+          ScriptFolder: 'linux'
+    steps:
+    - template: ./templates/sync-source.yml
+      parameters:
+        artifactSource: $(parameters.artifactSource)
+        needSubmodules: 'true'
+    - template: ./templates/build-single.yml
+      parameters:
+        artifactSource: 'false'
+        cache: 'true'
+        version: $(DisplayVersion)
+- stage: build_win
+  dependsOn: format
+  displayName: 'build-windows'
+  jobs:
+  - job: build
+    timeoutInMinutes: 120
+    displayName: 'msvc'
+    pool:
+      vmImage: windows-2022
+    steps:
+    - template: ./templates/sync-source.yml
+      parameters:
+        artifactSource: $(parameters.artifactSource)
+        needSubmodules: 'true'
+    - template: ./templates/build-msvc.yml
+      parameters:
+        artifactSource: 'false'
+        cache: 'true'
+        version: $(DisplayVersion)
+- stage: release
+  displayName: 'release'
+  dependsOn:
+  - build
+  - build_win
+  jobs:
+  - job: github
+    displayName: 'github'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - template: ./templates/release-github.yml

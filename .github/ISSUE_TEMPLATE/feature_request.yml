@@ -1,0 +1,28 @@
+name: Feature Request
+description: File a feature request
+labels: "request"
+body:
+  - type: markdown
+    attributes:
+      value: Tech support does not belong here. You should only file an issue here if you are requesting a feature you believe would make yuzu better.
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the feature you are requesting.
+      options:
+      - label: I have searched the existing issues
+        required: true
+  - type: textarea
+    id: what-feature
+    attributes:
+      label: What feature are you suggesting?
+      description: A brief description of the requested feature.
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: Why would this feature be useful?
+      description: A brief description of why this feature would make yuzu better.
+    validations:
+      required: true

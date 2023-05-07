@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+stages:
+- stage: format
+  displayName: 'format'
+  jobs:
+  - job: format
+    displayName: 'clang'
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - template: ./templates/format-check.yml
+      parameters:
+        artifactSource: 'false'
+- stage: build
+  displayName: 'build'
+  dependsOn: format
+  jobs:
+  - template: ./templates/build-standard.yml
+    parameters:
+      cache: 'false'
+  - template: ./templates/build-testing.yml

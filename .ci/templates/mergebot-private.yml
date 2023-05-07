@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2019 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+parameters:
+  matchLabel: 'dummy-merge'
+  matchLabelPublic: 'dummy-merge'
+
+steps:
+  - script: mkdir $(System.DefaultWorkingDirectory)/patches && pip install requests urllib3
+    displayName: 'Prepare Environment'
+  - script: chmod a+x $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh && $(System.DefaultWorkingDirectory)/.ci/scripts/merge/yuzubot-git-config.sh
+    displayName: 'Apply Git Configuration'
+  - task: PythonScript@0
+    displayName: 'Discover, Download, and Apply Patches (Mainline)'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '.ci/scripts/merge/apply-patches-by-label.py'
+      arguments: '${{ parameters.matchLabelPublic }} $(MergeTaglinePublic) patches-public'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: PythonScript@0
+    displayName: 'Discover, Download, and Apply Patches (Patreon Public)'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '.ci/scripts/merge/apply-patches-by-label.py'
+      arguments: '${{ parameters.matchLabel }} "$(MergeTaglinePrivate) Public" patches-mixed-public'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'
+  - task: PythonScript@0
+    displayName: 'Discover, Download, and Apply Patches (Patreon Private)'
+    inputs:
+      scriptSource: 'filePath'
+      scriptPath: '.ci/scripts/merge/apply-patches-by-label-private.py'
+      arguments: '$(PrivateMergeUser) ${{ parameters.matchLabel }} "$(MergeTaglinePrivate) Private" patches-private'
+      workingDirectory: '$(System.DefaultWorkingDirectory)'

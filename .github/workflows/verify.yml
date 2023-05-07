@@ -1,0 +1,124 @@
+# SPDX-FileCopyrightText: 2022 yuzu Emulator Project
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: 'yuzu verify'
+
+on:
+  pull_request:
+    branches: [ master ]
+env:
+  PR_NUMBER: pr${{ github.event.number }}
+
+jobs:
+  format:
+    name: 'verify format'
+    runs-on: ubuntu-latest
+    container:
+      image: yuzuemu/build-environments:linux-clang-format
+      options: -u 1001
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: false
+      - name: 'Verify Formatting'
+        run: bash -ex ./.ci/scripts/format/script.sh
+  build:
+    name: 'test build'
+    needs: format
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - type: clang
+            image: linux-fresh
+          - type: linux
+            image: linux-fresh
+          - type: windows
+            image: linux-mingw
+    container:
+      image: yuzuemu/build-environments:${{ matrix.image }}
+      options: -u 1001
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: ccache-restore
+        with:
+          path: ~/.ccache
+          key: ${{ runner.os }}-${{ matrix.type }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.type }}-
+      - name: Create ccache directory
+        if: steps.ccache-restore.outputs.cache-hit != 'true'
+        run: mkdir -p ~/.ccache
+      - name: Build
+        run: ./.ci/scripts/${{ matrix.type }}/docker.sh
+        env:
+          ENABLE_COMPATIBILITY_REPORTING: "ON"
+      - name: Pack
+        run: ./.ci/scripts/${{ matrix.type }}/upload.sh
+        env:
+          NO_SOURCE_PACK: "YES"
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.type }}
+          path: artifacts/
+  build-msvc:
+    name: 'test build (windows, msvc)'
+    needs: format
+    runs-on: windows-2022
+    steps:
+      - name: Set up cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.buildcache
+          key: ${{ runner.os }}-msvc-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-msvc-
+      - name: Install dependencies
+        # due to how chocolatey works, only cmd.exe is supported here
+        shell: cmd
+        run: |
+          choco install vulkan-sdk wget
+          call refreshenv
+          wget https://github.com/mbitsnbites/buildcache/releases/download/v0.27.6/buildcache-windows.zip
+          7z x buildcache-windows.zip
+          copy buildcache\bin\buildcache.exe C:\ProgramData\chocolatey\bin
+          rmdir buildcache
+          echo %PATH% >> %GITHUB_PATH%
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Configure
+        env:
+          CC: cl.exe
+          CXX: cl.exe
+        run: |
+          glslangValidator --version
+          mkdir build
+          cmake . -B build -GNinja -DCMAKE_TOOLCHAIN_FILE="CMakeModules/MSVCCache.cmake" -DUSE_CCACHE=ON -DYUZU_USE_BUNDLED_QT=1 -DYUZU_USE_BUNDLED_SDL2=1 -DYUZU_USE_QT_WEB_ENGINE=ON -DENABLE_COMPATIBILITY_LIST_DOWNLOAD=ON -DYUZU_ENABLE_COMPATIBILITY_REPORTING=ON -DUSE_DISCORD_PRESENCE=ON -DENABLE_QT_TRANSLATION=ON -DCMAKE_BUILD_TYPE=Release -DGIT_BRANCH=pr-verify -DYUZU_CRASH_DUMPS=ON
+      - name: Build
+        run: cmake --build build
+      - name: Cache Summary
+        run: buildcache -s
+      - name: Pack
+        shell: pwsh
+        run: .\.ci\scripts\windows\upload.ps1
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: msvc
+          path: artifacts/
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.INDIVIDUAL_EXE }}
+          path: ${{ env.INDIVIDUAL_EXE }}
