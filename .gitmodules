@@ -1,0 +1,51 @@
+# SPDX-FileCopyrightText: 2014 Citra Emulator Project
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+[submodule "enet"]
+    path = externals/enet
+    url = https://github.com/lsalzman/enet.git
+[submodule "inih"]
+    path = externals/inih/inih
+    url = https://github.com/benhoyt/inih.git
+[submodule "cubeb"]
+    path = externals/cubeb
+    url = https://github.com/mozilla/cubeb.git
+[submodule "dynarmic"]
+    path = externals/dynarmic
+    url = https://github.com/MerryMage/dynarmic.git
+[submodule "libusb"]
+	path = externals/libusb/libusb
+	url = https://github.com/libusb/libusb.git
+[submodule "discord-rpc"]
+    path = externals/discord-rpc
+    url = https://github.com/yuzu-emu/discord-rpc.git
+[submodule "Vulkan-Headers"]
+    path = externals/Vulkan-Headers
+    url = https://github.com/KhronosGroup/Vulkan-Headers.git
+[submodule "sirit"]
+    path = externals/sirit
+    url = https://github.com/yuzu-emu/sirit
+[submodule "mbedtls"]
+    path = externals/mbedtls
+    url = https://github.com/yuzu-emu/mbedtls
+[submodule "xbyak"]
+    path = externals/xbyak
+    url = https://github.com/herumi/xbyak.git
+[submodule "opus"]
+	path = externals/opus/opus
+	url = https://github.com/xiph/opus.git
+[submodule "SDL"]
+	path = externals/SDL
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "cpp-httplib"]
+	path = externals/cpp-httplib
+	url = https://github.com/yhirose/cpp-httplib.git
+[submodule "ffmpeg"]
+	path = externals/ffmpeg/ffmpeg
+	url = https://github.com/FFmpeg/FFmpeg.git
+[submodule "vcpkg"]
+	path = externals/vcpkg
+	url = https://github.com/Microsoft/vcpkg.git
+[submodule "cpp-jwt"]
+	path = externals/cpp-jwt
+	url = https://github.com/arun11299/cpp-jwt.git
