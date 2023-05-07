@@ -388,7 +388,7 @@ Id EmitGetAttributeU32(EmitContext& ctx, IR::Attribute attr, Id) {
         } else {
             const Id index{ctx.OpLoad(ctx.U32[1], ctx.vertex_index)};
             const Id base{ctx.OpLoad(ctx.U32[1], ctx.base_vertex)};
-            return ctx.OpISub(ctx.U32[1], index, base);
+            return ctx.OpLoad(ctx.U32[1], ctx.vertex_index);
         }
     case IR::Attribute::BaseInstance:
         return ctx.OpLoad(ctx.U32[1], ctx.base_instance);
