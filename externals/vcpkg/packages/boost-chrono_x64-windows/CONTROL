@@ -1,8 +1,0 @@
-Package: boost-chrono
-Version: 1.79.0
-Depends: boost-assert, boost-build, boost-config, boost-core, boost-integer, boost-modular-build-helper, boost-move, boost-mpl, boost-predef, boost-ratio, boost-static-assert, boost-system, boost-throw-exception, boost-type-traits, boost-typeof, boost-utility, boost-vcpkg-helpers, boost-winapi, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 0f6b695334f16114fb12e1038d5cf5fd52d91d72f0081321cffaf0e7ba2c90a7
-Description: Boost chrono module
-Type: Port

@@ -1,8 +1,0 @@
-Package: boost-unordered
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-container-hash, boost-core, boost-detail, boost-move, boost-predef, boost-preprocessor, boost-throw-exception, boost-tuple, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: e9de4f28b655a11b9f09a313e61a7d4c2fdec24fde3ad23294ab72144e82748e
-Description: Boost unordered module
-Type: Port

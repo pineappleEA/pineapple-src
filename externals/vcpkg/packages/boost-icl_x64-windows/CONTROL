@@ -1,8 +1,0 @@
-Package: boost-icl
-Version: 1.79.0
-Depends: boost-assert, boost-concept-check, boost-config, boost-container, boost-core, boost-date-time, boost-detail, boost-iterator, boost-move, boost-mpl, boost-range, boost-rational, boost-static-assert, boost-type-traits, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: cd62a23491b7fdfbd4c04eb248b0f002d921eb56641f00f0e05c606fbe85dd5f
-Description: Boost icl module
-Type: Port

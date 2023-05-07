@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/range/archive/boost-1.79.0.tar.gz -> boostorg-range-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-range-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-range/src/ost-1.79.0-71d92853dd.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-range_x64-windows/share/boost-range/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-range_x64-windows/share/boost-range/copyright

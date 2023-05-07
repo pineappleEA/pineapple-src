@@ -1,8 +1,0 @@
-Package: boost-function-types
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-detail, boost-mpl, boost-preprocessor, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 62bb37e6456348c32f9971b254f2647c013769fb4e5263fe293f32fb4a75c597
-Description: Boost function_types module
-Type: Port

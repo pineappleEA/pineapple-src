@@ -1,8 +1,0 @@
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/fmt.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/package.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/package_source.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/edit_cache.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/list_install_components.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/install.dir
-D:/a/1/s/externals/vcpkg/buildtrees/fmt/x64-windows-dbg/CMakeFiles/install/local.dir

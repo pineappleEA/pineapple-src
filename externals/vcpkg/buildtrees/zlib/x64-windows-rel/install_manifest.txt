@@ -1,4 +1,0 @@
-D:/a/1/s/externals/vcpkg/packages/zlib_x64-windows/lib/zlib.lib
-D:/a/1/s/externals/vcpkg/packages/zlib_x64-windows/bin/zlib1.dll
-D:/a/1/s/externals/vcpkg/packages/zlib_x64-windows/include/zconf.h
-D:/a/1/s/externals/vcpkg/packages/zlib_x64-windows/include/zlib.h

@@ -1,8 +1,0 @@
-Package: boost-move
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-core, boost-static-assert, boost-vcpkg-helpers, boost-winapi
-Architecture: x64-windows
-Multi-Arch: same
-Abi: c41e7bcb3cbb57100f8b9da78c55dca8017a976ac084f3a13c28135622927a0b
-Description: Boost move module
-Type: Port

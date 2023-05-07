@@ -1,9 +1,0 @@
--- Downloading https://github.com/boostorg/build/archive/boost-1.79.0.tar.gz -> boostorg-build-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-build-boost-1.79.0.tar.gz
--- Applying patch 0001-don-t-skip-install-targets.patch
--- Applying patch 0002-fix-get-version.patch
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-build/src/ost-1.79.0-48523991a4.clean
--- Using cached boost_LICENSE_1_0.txt.
--- Downloading https://raw.githubusercontent.com/boostorg/boost/boost-1.79.0/boostcpp.jam -> boost-1.79.0-boostcpp.jam...
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-build_x64-windows/share/boost-build/copyright
--- Bootstrapping...

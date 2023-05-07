@@ -1,2 +1,0 @@
-D:/a/1/s/externals/vcpkg/packages/zlib_x64-windows/debug/lib/zlibd.lib
-D:/a/1/s/externals/vcpkg/packages/zlib_x64-windows/debug/bin/zlibd1.dll

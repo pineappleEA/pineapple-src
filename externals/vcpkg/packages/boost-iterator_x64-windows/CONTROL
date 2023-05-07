@@ -1,8 +1,0 @@
-Package: boost-iterator
-Version: 1.79.0
-Depends: boost-assert, boost-concept-check, boost-config, boost-conversion, boost-core, boost-detail, boost-function-types, boost-fusion, boost-mpl, boost-optional, boost-smart-ptr, boost-static-assert, boost-type-traits, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 198407720ab08cc171b7d0c2a7640ae035c7aee5a21a0e1d3c185c4b8c495f30
-Description: Boost iterator module
-Type: Port

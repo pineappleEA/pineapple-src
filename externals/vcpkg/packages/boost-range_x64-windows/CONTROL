@@ -1,8 +1,0 @@
-Package: boost-range
-Version: 1.79.0
-Depends: boost-array, boost-assert, boost-concept-check, boost-config, boost-container-hash, boost-conversion, boost-core, boost-detail, boost-iterator, boost-mpl, boost-optional, boost-preprocessor, boost-regex, boost-static-assert, boost-tuple, boost-type-traits, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: c7bf2eb03ce19786dd1929c6c714b2709ede6b84cf87c3e713106ca002d9c992
-Description: Boost range module
-Type: Port

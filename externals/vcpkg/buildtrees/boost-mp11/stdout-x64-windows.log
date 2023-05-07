@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/mp11/archive/boost-1.79.0.tar.gz -> boostorg-mp11-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-mp11-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-mp11/src/ost-1.79.0-98abe5fba3.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-mp11_x64-windows/share/boost-mp11/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-mp11_x64-windows/share/boost-mp11/copyright

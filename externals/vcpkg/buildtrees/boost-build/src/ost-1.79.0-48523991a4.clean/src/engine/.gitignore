@@ -1,9 +1,0 @@
-bin.*
-bootstrap
-*.obj
-*.ilk
-*.pdb
-b2
-b2.*
-bjam
-bjam.*

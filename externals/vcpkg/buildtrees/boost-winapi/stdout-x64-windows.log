@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/winapi/archive/boost-1.79.0.tar.gz -> boostorg-winapi-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-winapi-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-winapi/src/ost-1.79.0-ca5076070e.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-winapi_x64-windows/share/boost-winapi/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-winapi_x64-windows/share/boost-winapi/copyright

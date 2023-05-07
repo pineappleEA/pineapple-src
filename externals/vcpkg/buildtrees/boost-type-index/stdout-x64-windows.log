@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/type_index/archive/boost-1.79.0.tar.gz -> boostorg-type_index-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-type_index-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-type-index/src/ost-1.79.0-ae3c871d4a.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-type-index_x64-windows/share/boost-type-index/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-type-index_x64-windows/share/boost-type-index/copyright

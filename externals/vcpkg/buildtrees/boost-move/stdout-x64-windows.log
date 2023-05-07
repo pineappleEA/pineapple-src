@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/move/archive/boost-1.79.0.tar.gz -> boostorg-move-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-move-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-move/src/ost-1.79.0-01aabf3f6d.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-move_x64-windows/share/boost-move/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-move_x64-windows/share/boost-move/copyright

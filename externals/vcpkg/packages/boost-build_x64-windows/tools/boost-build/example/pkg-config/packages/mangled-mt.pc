@@ -1,4 +1,0 @@
-Name: mangled
-Version: 0.1
-Description: A package with mangled name (multi-threaded version)
-Cflags: -DTHREADING=\"MULTI\"

@@ -1,5 +1,0 @@
-# this subproject showcases installed package name deduction
-
-project subx ;
-build-project y ;
-build-project z ;

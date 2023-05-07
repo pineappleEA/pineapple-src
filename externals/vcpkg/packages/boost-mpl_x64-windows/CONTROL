@@ -1,8 +1,0 @@
-Package: boost-mpl
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-predef, boost-preprocessor, boost-static-assert, boost-type-traits, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 89695bf75ab1fa2b706b2a0c2ef28c6726c3abd61ff51fb0966e3270153a6cd9
-Description: Boost mpl module
-Type: Port

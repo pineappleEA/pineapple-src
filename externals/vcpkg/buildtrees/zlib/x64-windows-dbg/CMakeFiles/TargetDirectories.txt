@@ -1,7 +1,0 @@
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/zlib.dir
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/test.dir
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/edit_cache.dir
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/list_install_components.dir
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/install.dir
-D:/a/1/s/externals/vcpkg/buildtrees/zlib/x64-windows-dbg/CMakeFiles/install/local.dir

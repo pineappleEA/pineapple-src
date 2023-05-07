@@ -1,8 +1,0 @@
-Package: boost-context
-Version: 1.79.0
-Depends: boost-assert, boost-build, boost-config, boost-core, boost-modular-build-helper, boost-mp11, boost-pool, boost-predef, boost-smart-ptr, boost-vcpkg-helpers, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: e94ca7654d66a89fc41232ed8f559b3f0da8bbdf35e7851b96a39f97664a797a
-Description: Boost context module
-Type: Port

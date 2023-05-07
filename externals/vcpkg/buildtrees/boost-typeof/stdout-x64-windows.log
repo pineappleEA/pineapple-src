@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/typeof/archive/boost-1.79.0.tar.gz -> boostorg-typeof-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-typeof-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-typeof/src/ost-1.79.0-266c1e58c7.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-typeof_x64-windows/share/boost-typeof/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-typeof_x64-windows/share/boost-typeof/copyright

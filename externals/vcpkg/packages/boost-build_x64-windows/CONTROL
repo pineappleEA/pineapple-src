@@ -1,8 +1,0 @@
-Package: boost-build
-Version: 1.79.0
-Depends: boost-uninstall
-Architecture: x64-windows
-Multi-Arch: same
-Abi: ae2e04240d11929b681e289a0f6dd881454523061c007bfce13fdb89700330de
-Description: Boost.Build
-Type: Port

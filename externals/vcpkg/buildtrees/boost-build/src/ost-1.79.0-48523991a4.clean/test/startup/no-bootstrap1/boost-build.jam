@@ -1,6 +1,0 @@
-# Copyright 2002 Dave Abrahams
-# Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE.txt or https://www.bfgroup.xyz/b2/LICENSE.txt)
-
-# Bootstrap file not found via implicit lookup in BOOST_BUILD_PATH
-boost-build ;

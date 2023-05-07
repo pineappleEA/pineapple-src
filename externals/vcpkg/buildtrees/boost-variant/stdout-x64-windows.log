@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/variant/archive/boost-1.79.0.tar.gz -> boostorg-variant-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-variant-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-variant/src/ost-1.79.0-4a250e3e38.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-variant_x64-windows/share/boost-variant/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-variant_x64-windows/share/boost-variant/copyright

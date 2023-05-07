@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/bind/archive/boost-1.79.0.tar.gz -> boostorg-bind-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-bind-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-bind/src/ost-1.79.0-03c5a59986.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-bind_x64-windows/share/boost-bind/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-bind_x64-windows/share/boost-bind/copyright

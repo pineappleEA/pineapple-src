@@ -1,8 +1,0 @@
-Package: boost-endian
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-static-assert, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 5a1bfd28a86dcf2aaf3167f8c205a6e0adc9a37a5c72c5e1a65f036a2b3dd3ad
-Description: Boost endian module
-Type: Port

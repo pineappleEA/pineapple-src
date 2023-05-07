@@ -1,8 +1,0 @@
-Package: boost-conversion
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-core, boost-smart-ptr, boost-throw-exception, boost-type-traits, boost-typeof, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: be5f99a73be1cda28552c3d6efdaf39ed065f34c78fcd7d45a71d30610fcfc26
-Description: Boost conversion module
-Type: Port

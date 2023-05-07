@@ -1,8 +1,0 @@
-Package: boost-asio
-Version: 1.79.0
-Depends: boost-align, boost-array, boost-assert, boost-bind, boost-chrono, boost-config, boost-core, boost-coroutine, boost-date-time, boost-function, boost-regex, boost-smart-ptr, boost-system, boost-throw-exception, boost-type-traits, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: ee07a520862090f9b225144e0a713af88c9d74f55d01135fedfa8cf85947a509
-Description: Boost asio module
-Type: Port

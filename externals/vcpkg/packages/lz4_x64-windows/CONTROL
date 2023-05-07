@@ -1,9 +1,0 @@
-Package: lz4
-Version: 1.9.3
-Port-Version: 3
-Depends: vcpkg-cmake, vcpkg-cmake-config
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 99d77b6fc0ff8266f0b1fcd3337488475a719f99f38d765455221d8b7c32bce5
-Description: Lossless compression algorithm, providing compression speed at 400 MB/s per core.
-Type: Port

@@ -1,8 +1,0 @@
-Package: boost-pool
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-integer, boost-throw-exception, boost-type-traits, boost-vcpkg-helpers, boost-winapi
-Architecture: x64-windows
-Multi-Arch: same
-Abi: f53abd1be62e7e71cadf9ce7d38ccf5edc7b8505d9970a8c74849587e388bfd4
-Description: Boost pool module
-Type: Port

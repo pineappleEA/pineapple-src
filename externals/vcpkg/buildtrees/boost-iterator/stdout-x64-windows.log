@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/iterator/archive/boost-1.79.0.tar.gz -> boostorg-iterator-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-iterator-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-iterator/src/ost-1.79.0-52b6e6951f.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-iterator_x64-windows/share/boost-iterator/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-iterator_x64-windows/share/boost-iterator/copyright

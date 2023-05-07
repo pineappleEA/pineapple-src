@@ -1,8 +1,0 @@
-Package: boost-filesystem
-Version: 1.79.0
-Depends: boost-assert, boost-atomic, boost-build, boost-config, boost-container-hash, boost-core, boost-detail, boost-io, boost-iterator, boost-modular-build-helper, boost-predef, boost-smart-ptr, boost-system, boost-throw-exception, boost-type-traits, boost-vcpkg-helpers, boost-winapi, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 90918cb74a93d6b6c28d619c37cb5163e5f2d349d2c60961d2383ee76c2dec77
-Description: Boost filesystem module
-Type: Port

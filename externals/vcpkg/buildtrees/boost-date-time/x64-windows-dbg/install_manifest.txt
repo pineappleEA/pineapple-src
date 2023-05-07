@@ -1,2 +1,0 @@
-D:/a/1/s/externals/vcpkg/packages/boost-date-time_x64-windows/debug/lib/boost_date_time-vc142-mt-gd-x64-1_79.lib
-D:/a/1/s/externals/vcpkg/packages/boost-date-time_x64-windows/debug/bin/boost_date_time-vc142-mt-gd-x64-1_79.dll

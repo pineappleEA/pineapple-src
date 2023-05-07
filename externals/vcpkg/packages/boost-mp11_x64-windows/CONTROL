@@ -1,8 +1,0 @@
-Package: boost-mp11
-Version: 1.79.0
-Depends: boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: e71044de916a0c8906043124be4939850655f76df511f085fa53adeb68e2cb2c
-Description: Boost mp11 module
-Type: Port

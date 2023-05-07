@@ -1,8 +1,0 @@
-Package: boost-winapi
-Version: 1.79.0
-Depends: boost-config, boost-predef, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: e3a25230fe97591ec7dbff1bfe0e2db388523e993305526811adef219f215c5a
-Description: Boost winapi module
-Type: Port

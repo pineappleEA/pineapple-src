@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/static_assert/archive/boost-1.79.0.tar.gz -> boostorg-static_assert-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-static_assert-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-static-assert/src/ost-1.79.0-61c189c6f4.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-static-assert_x64-windows/share/boost-static-assert/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-static-assert_x64-windows/share/boost-static-assert/copyright

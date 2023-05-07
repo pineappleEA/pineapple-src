@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/utility/archive/boost-1.79.0.tar.gz -> boostorg-utility-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-utility-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-utility/src/ost-1.79.0-8813e85352.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-utility_x64-windows/share/boost-utility/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-utility_x64-windows/share/boost-utility/copyright

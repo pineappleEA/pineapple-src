@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/concept_check/archive/boost-1.79.0.tar.gz -> boostorg-concept_check-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-concept_check-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-concept-check/src/ost-1.79.0-c4bb71ebed.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-concept-check_x64-windows/share/boost-concept-check/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-concept-check_x64-windows/share/boost-concept-check/copyright

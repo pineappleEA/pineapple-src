@@ -1,8 +1,0 @@
-Package: boost-ratio
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-integer, boost-mpl, boost-rational, boost-static-assert, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 2ff24914ebec67ffcef3caa61c2b8947741fbeaf9122e6efdce1ba4d778abe8e
-Description: Boost ratio module
-Type: Port

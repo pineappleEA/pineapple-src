@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/type_traits/archive/boost-1.79.0.tar.gz -> boostorg-type_traits-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-type_traits-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-type-traits/src/ost-1.79.0-b126e8b4a2.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-type-traits_x64-windows/share/boost-type-traits/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-type-traits_x64-windows/share/boost-type-traits/copyright

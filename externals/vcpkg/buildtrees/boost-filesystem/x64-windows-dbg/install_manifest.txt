@@ -1,2 +1,0 @@
-D:/a/1/s/externals/vcpkg/packages/boost-filesystem_x64-windows/debug/lib/boost_filesystem-vc142-mt-gd-x64-1_79.lib
-D:/a/1/s/externals/vcpkg/packages/boost-filesystem_x64-windows/debug/bin/boost_filesystem-vc142-mt-gd-x64-1_79.dll

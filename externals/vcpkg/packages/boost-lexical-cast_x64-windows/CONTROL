@@ -1,8 +1,0 @@
-Package: boost-lexical-cast
-Version: 1.79.0
-Depends: boost-array, boost-assert, boost-config, boost-container, boost-core, boost-integer, boost-numeric-conversion, boost-range, boost-static-assert, boost-throw-exception, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 25419bb02ca50db7244c1bbdfc53d5ea42afab7c3d07470da51f773f6c556a68
-Description: Boost lexical_cast module
-Type: Port

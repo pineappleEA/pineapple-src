@@ -1,8 +1,0 @@
-Package: boost-test
-Version: 1.79.0
-Depends: boost-algorithm, boost-assert, boost-bind, boost-build, boost-config, boost-core, boost-detail, boost-exception, boost-function, boost-io, boost-iterator, boost-modular-build-helper, boost-mpl, boost-numeric-conversion, boost-optional, boost-preprocessor, boost-smart-ptr, boost-static-assert, boost-type-traits, boost-utility, boost-vcpkg-helpers, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 4b372770143aa5260ae586dd2f86f09e6dd6d8db0b088e00a26f947eb4695589
-Description: Boost test module
-Type: Port

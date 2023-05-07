@@ -1,8 +1,0 @@
-Package: boost-proto
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-fusion, boost-mpl, boost-preprocessor, boost-range, boost-static-assert, boost-type-traits, boost-typeof, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: cd73fa3d717fc87fbbf3196e97df3c6fbb413a5b9f36518da6513e084f41781f
-Description: Boost proto module
-Type: Port

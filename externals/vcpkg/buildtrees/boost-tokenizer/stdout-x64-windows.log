@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/tokenizer/archive/boost-1.79.0.tar.gz -> boostorg-tokenizer-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-tokenizer-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-tokenizer/src/ost-1.79.0-3b3fcb0fc7.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-tokenizer_x64-windows/share/boost-tokenizer/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-tokenizer_x64-windows/share/boost-tokenizer/copyright

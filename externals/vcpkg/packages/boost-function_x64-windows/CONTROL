@@ -1,8 +1,0 @@
-Package: boost-function
-Version: 1.79.0
-Depends: boost-assert, boost-bind, boost-config, boost-core, boost-integer, boost-preprocessor, boost-throw-exception, boost-type-index, boost-type-traits, boost-typeof, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: fb9fcf8a7e9bcbcde04a10397958d4090714de5b6cbbf29ecd04e5091ab5778d
-Description: Boost function module
-Type: Port

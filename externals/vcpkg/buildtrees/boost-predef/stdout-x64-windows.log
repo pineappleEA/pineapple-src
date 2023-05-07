@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/predef/archive/boost-1.79.0.tar.gz -> boostorg-predef-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-predef-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-predef/src/ost-1.79.0-17cf5dffca.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-predef_x64-windows/share/boost-predef/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-predef_x64-windows/share/boost-predef/copyright

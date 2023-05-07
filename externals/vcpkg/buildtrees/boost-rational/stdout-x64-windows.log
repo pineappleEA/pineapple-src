@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/rational/archive/boost-1.79.0.tar.gz -> boostorg-rational-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-rational-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-rational/src/ost-1.79.0-91e0df0347.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-rational_x64-windows/share/boost-rational/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-rational_x64-windows/share/boost-rational/copyright

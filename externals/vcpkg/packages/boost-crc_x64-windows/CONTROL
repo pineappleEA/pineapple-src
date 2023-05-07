@@ -1,8 +1,0 @@
-Package: boost-crc
-Version: 1.79.0
-Depends: boost-array, boost-config, boost-integer, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: daa36910fae5e4968c2ffb998e7d1b63798152da24bf6a8e16a53e038209d844
-Description: Boost crc module
-Type: Port

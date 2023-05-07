@@ -1,8 +1,0 @@
-Package: boost-tokenizer
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-core, boost-iterator, boost-mpl, boost-throw-exception, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 2b152ae279fd96548f9409fcd2816f2cd004e4f074c0cbe17199c54412f9c757
-Description: Boost tokenizer module
-Type: Port

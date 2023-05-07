@@ -1,8 +1,0 @@
-Package: boost-container
-Version: 1.79.0
-Depends: boost-assert, boost-build, boost-config, boost-core, boost-intrusive, boost-modular-build-helper, boost-move, boost-static-assert, boost-type-traits, boost-vcpkg-helpers, boost-winapi, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 28f3292fd533fd5837f4834f534f435bceb9366c9c62e08934c1233a24bc6221
-Description: Boost container module
-Type: Port

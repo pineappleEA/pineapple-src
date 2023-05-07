@@ -1,8 +1,0 @@
-Package: boost-system
-Version: 1.79.0
-Depends: boost-assert, boost-build, boost-config, boost-modular-build-helper, boost-throw-exception, boost-variant2, boost-vcpkg-helpers, boost-winapi, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 0841ab8607e2170e8715211a791aade47fa5b0600a7d79ee77e6d079bc22e6ec
-Description: Boost system module
-Type: Port

@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/ratio/archive/boost-1.79.0.tar.gz -> boostorg-ratio-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-ratio-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-ratio/src/ost-1.79.0-f356802fb2.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-ratio_x64-windows/share/boost-ratio/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-ratio_x64-windows/share/boost-ratio/copyright

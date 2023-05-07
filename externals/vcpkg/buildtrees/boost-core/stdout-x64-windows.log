@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/core/archive/boost-1.79.0.tar.gz -> boostorg-core-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-core-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-core/src/ost-1.79.0-03bf202b15.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-core_x64-windows/share/boost-core/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-core_x64-windows/share/boost-core/copyright

@@ -1,8 +1,0 @@
-Package: boost-process
-Version: 1.79.0
-Depends: boost-algorithm, boost-asio, boost-config, boost-core, boost-filesystem, boost-fusion, boost-iterator, boost-move, boost-optional, boost-system, boost-tokenizer, boost-type-index, boost-vcpkg-helpers, boost-winapi
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 4e5569e966e1379e6738715041e7a69fe810bf6eaf820375b4e10328cd16cab4
-Description: Boost process module
-Type: Port

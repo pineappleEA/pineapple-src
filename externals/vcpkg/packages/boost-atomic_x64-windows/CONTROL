@@ -1,8 +1,0 @@
-Package: boost-atomic
-Version: 1.79.0
-Depends: boost-align, boost-assert, boost-build, boost-config, boost-modular-build-helper, boost-predef, boost-preprocessor, boost-static-assert, boost-type-traits, boost-vcpkg-helpers, boost-winapi, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 5d4e40a46ab327bee64e3411a765e4b15cd3c3ace21c2f0e424096d58a4f0716
-Description: Boost atomic module
-Type: Port

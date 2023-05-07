@@ -1,8 +1,0 @@
-Package: boost-intrusive
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-container-hash, boost-core, boost-move, boost-static-assert, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 531507e8bb60357a5f2420b0e6b640bce3890897679adb14e8d075f328c7d29d
-Description: Boost intrusive module
-Type: Port

@@ -1,8 +1,0 @@
-Package: boost-optional
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-core, boost-detail, boost-move, boost-predef, boost-static-assert, boost-throw-exception, boost-type-traits, boost-utility, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: f788fa553a62db44c8dbf2137e97e0f1a39b4482fdc2770c3f9fe67785726eed
-Description: Boost optional module
-Type: Port

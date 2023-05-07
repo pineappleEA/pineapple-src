@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/endian/archive/boost-1.79.0.tar.gz -> boostorg-endian-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-endian-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-endian/src/ost-1.79.0-3e0d30247b.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-endian_x64-windows/share/boost-endian/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-endian_x64-windows/share/boost-endian/copyright

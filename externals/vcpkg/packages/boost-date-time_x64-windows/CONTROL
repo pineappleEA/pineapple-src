@@ -1,8 +1,0 @@
-Package: boost-date-time
-Version: 1.79.0
-Depends: boost-algorithm, boost-assert, boost-build, boost-config, boost-core, boost-io, boost-lexical-cast, boost-modular-build-helper, boost-numeric-conversion, boost-range, boost-smart-ptr, boost-static-assert, boost-throw-exception, boost-tokenizer, boost-type-traits, boost-utility, boost-vcpkg-helpers, boost-winapi, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: ea1a620ca656799695327b89d1efa2960277fa51301995167bb9432a00be8bb6
-Description: Boost date_time module
-Type: Port

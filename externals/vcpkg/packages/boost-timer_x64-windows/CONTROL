@@ -1,8 +1,0 @@
-Package: boost-timer
-Version: 1.79.0
-Depends: boost-build, boost-chrono, boost-config, boost-core, boost-io, boost-modular-build-helper, boost-predef, boost-system, boost-throw-exception, boost-vcpkg-helpers, vcpkg-cmake
-Architecture: x64-windows
-Multi-Arch: same
-Abi: a63ff6f6299eb520982c52bc8013265560966e8ebe6e97e770ecc6ef6df67b35
-Description: Boost timer module
-Type: Port

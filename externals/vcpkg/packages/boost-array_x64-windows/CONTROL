@@ -1,8 +1,0 @@
-Package: boost-array
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-core, boost-static-assert, boost-throw-exception, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 4e990836b5cd32944d15ce6514ed5c667da5b743fc9639f71cada01a77d259d8
-Description: Boost array module
-Type: Port

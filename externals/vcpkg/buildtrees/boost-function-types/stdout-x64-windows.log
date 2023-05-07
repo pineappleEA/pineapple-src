@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/function_types/archive/boost-1.79.0.tar.gz -> boostorg-function_types-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-function_types-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-function-types/src/ost-1.79.0-728a3569fb.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-function-types_x64-windows/share/boost-function-types/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-function-types_x64-windows/share/boost-function-types/copyright

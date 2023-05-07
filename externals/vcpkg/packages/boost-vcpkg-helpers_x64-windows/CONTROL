@@ -1,8 +1,0 @@
-Package: boost-vcpkg-helpers
-Version: 1.79.0
-Depends: boost-uninstall
-Architecture: x64-windows
-Multi-Arch: same
-Abi: c81c7b003df356a1a120a7c0c2f5a2ac95f3c33b006a2a5b4c02dcf0c9f3deaa
-Description: Internal vcpkg port used to modularize Boost
-Type: Port

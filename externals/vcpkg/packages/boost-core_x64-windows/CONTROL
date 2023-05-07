@@ -1,8 +1,0 @@
-Package: boost-core
-Version: 1.79.0
-Depends: boost-assert, boost-config, boost-static-assert, boost-throw-exception, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 498aea0b6b68bcfe1ec683e76c2f0d32477dfe9ba958f518980ff806b6faba90
-Description: Boost core module
-Type: Port

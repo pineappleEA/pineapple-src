@@ -1,8 +1,0 @@
--- Downloading https://github.com/boostorg/asio/archive/boost-1.79.0.tar.gz -> boostorg-asio-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-asio-boost-1.79.0.tar.gz
--- Applying patch windows_alloca_header.patch
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-asio/src/ost-1.79.0-dcbf3eae2c.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-asio_x64-windows/share/boost-asio/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-asio_x64-windows/share/boost-asio/copyright

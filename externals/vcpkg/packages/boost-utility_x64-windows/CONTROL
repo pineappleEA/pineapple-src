@@ -1,8 +1,0 @@
-Package: boost-utility
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-io, boost-preprocessor, boost-throw-exception, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: cbe2d95223a1f8fb253145878922052018dccca3926ffb59d0e20676d6b0d3ac
-Description: Boost utility module
-Type: Port

@@ -1,2 +1,0 @@
-include("${CMAKE_CURRENT_LIST_DIR}/cmake-get-vars-x64-windows-rel.cmake.log")
-include("${CMAKE_CURRENT_LIST_DIR}/cmake-get-vars-x64-windows-dbg.cmake.log")

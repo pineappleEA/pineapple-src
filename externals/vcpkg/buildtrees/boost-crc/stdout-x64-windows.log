@@ -1,7 +1,0 @@
--- Downloading https://github.com/boostorg/crc/archive/boost-1.79.0.tar.gz -> boostorg-crc-boost-1.79.0.tar.gz...
--- Extracting source D:/a/1/s/externals/vcpkg/downloads/boostorg-crc-boost-1.79.0.tar.gz
--- Using source at D:/a/1/s/externals/vcpkg/buildtrees/boost-crc/src/ost-1.79.0-079abd6f93.clean
--- Copying headers
--- Copying headers done
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-crc_x64-windows/share/boost-crc/usage
--- Installing: D:/a/1/s/externals/vcpkg/packages/boost-crc_x64-windows/share/boost-crc/copyright

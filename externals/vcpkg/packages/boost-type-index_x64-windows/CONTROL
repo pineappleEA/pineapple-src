@@ -1,8 +1,0 @@
-Package: boost-type-index
-Version: 1.79.0
-Depends: boost-config, boost-container-hash, boost-core, boost-preprocessor, boost-static-assert, boost-throw-exception, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 02e0043655dfc78da0e49402132c6d23e784ecc6a2ff14311849524a25deb1fc
-Description: Boost type_index module
-Type: Port

@@ -1,8 +1,0 @@
-Package: boost-predef
-Version: 1.79.0
-Depends: boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: 81dee9e0bcf888e119f86c0e53f2b816cb91df516cbab38757aa4502b0f9a74b
-Description: Boost predef module
-Type: Port

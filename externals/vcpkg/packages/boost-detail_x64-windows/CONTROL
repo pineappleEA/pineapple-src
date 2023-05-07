@@ -1,8 +1,0 @@
-Package: boost-detail
-Version: 1.79.0
-Depends: boost-config, boost-core, boost-preprocessor, boost-static-assert, boost-type-traits, boost-vcpkg-helpers
-Architecture: x64-windows
-Multi-Arch: same
-Abi: f4d5f2563d2fd11703a20ab829d98c80441af223edd45ef9767a638ead123b15
-Description: Boost detail module
-Type: Port

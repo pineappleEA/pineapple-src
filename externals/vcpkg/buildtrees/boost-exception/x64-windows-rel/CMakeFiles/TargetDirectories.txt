@@ -1,6 +1,0 @@
-D:/a/1/s/externals/vcpkg/buildtrees/boost-exception/x64-windows-rel/CMakeFiles/boost.dir
-D:/a/1/s/externals/vcpkg/buildtrees/boost-exception/x64-windows-rel/CMakeFiles/edit_cache.dir
-D:/a/1/s/externals/vcpkg/buildtrees/boost-exception/x64-windows-rel/CMakeFiles/rebuild_cache.dir
-D:/a/1/s/externals/vcpkg/buildtrees/boost-exception/x64-windows-rel/CMakeFiles/list_install_components.dir
-D:/a/1/s/externals/vcpkg/buildtrees/boost-exception/x64-windows-rel/CMakeFiles/install.dir
-D:/a/1/s/externals/vcpkg/buildtrees/boost-exception/x64-windows-rel/CMakeFiles/install/local.dir
