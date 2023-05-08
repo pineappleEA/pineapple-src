@@ -102,7 +102,7 @@ void Impl(TranslatorVisitor& v, u64 insn, bool is_bindless) {
         }
         IR::F32 value{v.ir.CompositeExtract(sample, element)};
         if (element < 2) {
-            IR:U32 casted_value = v.ir.ConvertFToU(32, value);
+            IR::U32 casted_value = v.ir.ConvertFToU(32, value);
             v.X(dest_reg, v.ir.ShiftLeftLogical(casted_value, v.ir.Imm32(8)));
         } else {
             v.F(dest_reg, value);
