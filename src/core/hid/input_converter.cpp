@@ -86,7 +86,7 @@ Common::Input::MotionStatus TransformToMotion(const Common::Input::CallbackStatu
             .range = 1.0f,
             .offset = 0.0f,
         };
-        status.delta_timestamp = 5000;
+        status.delta_timestamp = 1000;
         status.force_update = true;
         status.accel.x = {
             .value = 0.0f,

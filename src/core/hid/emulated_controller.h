@@ -415,8 +415,8 @@ public:
      */
     void DeleteCallback(int key);
 
-    /// Swaps the state of the turbo buttons
-    void TurboButtonUpdate();
+    /// Swaps the state of the turbo buttons and updates motion input
+    void StatusUpdate();
 
 private:
     /// creates input devices from params
@@ -528,7 +528,6 @@ private:
     bool is_configuring{false};
     bool system_buttons_enabled{true};
     f32 motion_sensitivity{Core::HID::MotionInput::IsAtRestStandard};
-    bool force_update_motion{false};
     u32 turbo_button_state{0};
 
     // Temporary values to avoid doing changes while the controller is in configuring mode

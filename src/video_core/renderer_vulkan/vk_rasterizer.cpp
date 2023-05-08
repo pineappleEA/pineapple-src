@@ -510,13 +510,6 @@ VideoCore::RasterizerDownloadArea RasterizerVulkan::GetFlushArea(VAddr addr, u64
             return *area;
         }
     }
-    {
-        std::scoped_lock lock{buffer_cache.mutex};
-        auto area = buffer_cache.GetFlushArea(addr, size);
-        if (area) {
-            return *area;
-        }
-    }
     VideoCore::RasterizerDownloadArea new_area{
         .start_address = Common::AlignDown(addr, Core::Memory::YUZU_PAGESIZE),
         .end_address = Common::AlignUp(addr + size, Core::Memory::YUZU_PAGESIZE),
@@ -800,7 +793,7 @@ bool AccelerateDMA::DmaBufferImageCopy(const Tegra::DMA::ImageCopy& copy_info,
                                        const Tegra::DMA::BufferOperand& buffer_operand,
                                        const Tegra::DMA::ImageOperand& image_operand) {
     std::scoped_lock lock{buffer_cache.mutex, texture_cache.mutex};
-    const auto image_id = texture_cache.DmaImageId(image_operand);
+    const auto image_id = texture_cache.DmaImageId(image_operand, IS_IMAGE_UPLOAD);
     if (image_id == VideoCommon::NULL_IMAGE_ID) {
         return false;
     }

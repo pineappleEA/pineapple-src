@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include <algorithm>
+#include <set>
 #include <utility>
 #include "core/file_sys/vfs_layered.h"
-#include "core/file_sys/vfs_types.h"
 
 namespace FileSys {
 
@@ -59,13 +59,13 @@ std::string LayeredVfsDirectory::GetFullPath() const {
 
 std::vector<VirtualFile> LayeredVfsDirectory::GetFiles() const {
     std::vector<VirtualFile> out;
-    std::map<std::string, size_t, std::less<>> out_positions;
+    std::set<std::string, std::less<>> out_names;
 
     for (const auto& layer : dirs) {
         for (const auto& file : layer->GetFiles()) {
             auto file_name = file->GetName();
-            if (!out_positions.contains(file_name)) {
-                out_positions.emplace(std::move(file_name), out.size());
+            if (!out_names.contains(file_name)) {
+                out_names.emplace(std::move(file_name));
                 out.push_back(file);
             }
         }

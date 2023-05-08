@@ -667,7 +667,7 @@ public:
             .raw_value = input_engine->GetAxis(identifier, axis_z),
             .properties = properties_z,
         };
-        status.delta_timestamp = 5000;
+        status.delta_timestamp = 1000;
         status.force_update = true;
         return status;
     }

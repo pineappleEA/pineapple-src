@@ -811,7 +811,7 @@ void TextureCache<P>::PopAsyncFlushes() {
 }
 
 template <class P>
-ImageId TextureCache<P>::DmaImageId(const Tegra::DMA::ImageOperand& operand) {
+ImageId TextureCache<P>::DmaImageId(const Tegra::DMA::ImageOperand& operand, bool is_upload) {
     const ImageInfo dst_info(operand);
     const ImageId dst_id = FindDMAImage(dst_info, operand.address);
     if (!dst_id) {
@@ -822,7 +822,7 @@ ImageId TextureCache<P>::DmaImageId(const Tegra::DMA::ImageOperand& operand) {
         // No need to waste time on an image that's synced with guest
         return NULL_IMAGE_ID;
     }
-    if (!image.info.dma_downloaded) {
+    if (!is_upload && !image.info.dma_downloaded) {
         // Force a full sync.
         image.info.dma_downloaded = true;
         return NULL_IMAGE_ID;
@@ -1323,7 +1323,6 @@ ImageId TextureCache<P>::JoinImages(const ImageInfo& info, GPUVAddr gpu_addr, VA
             all_siblings.push_back(overlap_id);
         } else {
             bad_overlap_ids.push_back(overlap_id);
-            overlap.flags |= ImageFlagBits::BadOverlap;
         }
     };
     ForEachImageInRegion(cpu_addr, size_bytes, region_check);
@@ -1434,7 +1433,12 @@ ImageId TextureCache<P>::JoinImages(const ImageInfo& info, GPUVAddr gpu_addr, VA
         ImageBase& aliased = slot_images[aliased_id];
         aliased.overlapping_images.push_back(new_image_id);
         new_image.overlapping_images.push_back(aliased_id);
-        new_image.flags |= ImageFlagBits::BadOverlap;
+        if (aliased.info.resources.levels == 1 && aliased.overlapping_images.size() > 1) {
+            aliased.flags |= ImageFlagBits::BadOverlap;
+        }
+        if (new_image.info.resources.levels == 1 && new_image.overlapping_images.size() > 1) {
+            new_image.flags |= ImageFlagBits::BadOverlap;
+        }
     }
     RegisterImage(new_image_id);
     return new_image_id;

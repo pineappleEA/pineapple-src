@@ -979,7 +979,6 @@ void EmulatedController::SetMotion(const Common::Input::CallbackStatus& callback
     emulated.SetUserGyroThreshold(raw_status.gyro.x.properties.threshold);
     emulated.UpdateRotation(raw_status.delta_timestamp);
     emulated.UpdateOrientation(raw_status.delta_timestamp);
-    force_update_motion = raw_status.force_update;
 
     auto& motion = controller.motion_state[index];
     motion.accel = emulated.GetAcceleration();
@@ -1618,19 +1617,6 @@ NpadGcTriggerState EmulatedController::GetTriggers() const {
 
 MotionState EmulatedController::GetMotions() const {
     std::unique_lock lock{mutex};
-
-    // Some drivers like mouse motion need constant refreshing
-    if (force_update_motion) {
-        for (auto& device : motion_devices) {
-            if (!device) {
-                continue;
-            }
-            lock.unlock();
-            device->ForceUpdate();
-            lock.lock();
-        }
-    }
-
     return controller.motion_state;
 }
 
@@ -1696,8 +1682,21 @@ void EmulatedController::DeleteCallback(int key) {
     callback_list.erase(iterator);
 }
 
-void EmulatedController::TurboButtonUpdate() {
+void EmulatedController::StatusUpdate() {
     turbo_button_state = (turbo_button_state + 1) % (TURBO_BUTTON_DELAY * 2);
+
+    // Some drivers like key motion need constant refreshing
+    for (std::size_t index = 0; index < motion_devices.size(); ++index) {
+        const auto& raw_status = controller.motion_values[index].raw_status;
+        auto& device = motion_devices[index];
+        if (!raw_status.force_update) {
+            continue;
+        }
+        if (!device) {
+            continue;
+        }
+        device->ForceUpdate();
+    }
 }
 
 NpadButton EmulatedController::GetTurboButtonMask() const {

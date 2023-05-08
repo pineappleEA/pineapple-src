@@ -203,11 +203,8 @@ bool BufferCache<P>::DMACopy(GPUVAddr src_address, GPUVAddr dest_address, u64 am
         const VAddr new_base_address = *cpu_dest_address + diff;
         const IntervalType add_interval{new_base_address, new_base_address + size};
         tmp_intervals.push_back(add_interval);
-        if (!Settings::values.use_reactive_flushing.GetValue() ||
-            memory_tracker.IsRegionPreflushable(new_base_address, new_base_address + size)) {
-            uncommitted_ranges.add(add_interval);
-            pending_ranges.add(add_interval);
-        }
+        uncommitted_ranges.add(add_interval);
+        pending_ranges.add(add_interval);
     };
     ForEachInRangeSet(common_ranges, *cpu_src_address, amount, mirror);
     // This subtraction in this order is important for overlapping copies.
@@ -1234,10 +1231,6 @@ void BufferCache<P>::MarkWrittenBuffer(BufferId buffer_id, VAddr cpu_addr, u32 s
 
     const IntervalType base_interval{cpu_addr, cpu_addr + size};
     common_ranges.add(base_interval);
-    if (Settings::values.use_reactive_flushing.GetValue() &&
-        !memory_tracker.IsRegionPreflushable(cpu_addr, cpu_addr + size)) {
-        return;
-    }
     uncommitted_ranges.add(base_interval);
     pending_ranges.add(base_interval);
 }

@@ -288,7 +288,7 @@ void MaxwellDMA::CopyPitchToBlockLinear() {
     write_buffer.resize_destructive(dst_size);
 
     memory_manager.ReadBlock(regs.offset_in, read_buffer.data(), src_size);
-    memory_manager.ReadBlock(regs.offset_out, write_buffer.data(), dst_size);
+    memory_manager.ReadBlockUnsafe(regs.offset_out, write_buffer.data(), dst_size);
 
     // If the input is linear and the output is tiled, swizzle the input and copy it over.
     SwizzleSubrect(write_buffer, read_buffer, bytes_per_pixel, width, height, depth, x_offset,
