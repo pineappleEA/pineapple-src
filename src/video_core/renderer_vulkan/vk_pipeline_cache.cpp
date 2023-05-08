@@ -297,7 +297,7 @@ PipelineCache::PipelineCache(RasterizerVulkan& rasterizer_, const Device& device
         .support_int8 = device.IsInt8Supported(),
         .support_int16 = device.IsShaderInt16Supported(),
         .support_int64 = device.IsShaderInt64Supported(),
-        .support_vertex_instance_id = false,
+        .support_vertex_instance_id = true,
         .support_float_controls = true,
         .support_separate_denorm_behavior =
             float_control.denormBehaviorIndependence == VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_ALL,
