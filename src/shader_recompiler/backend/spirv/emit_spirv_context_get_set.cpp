@@ -339,9 +339,7 @@ Id EmitGetAttribute(EmitContext& ctx, IR::Attribute attr, Id vertex) {
         if (ctx.profile.support_vertex_instance_id) {
             return ctx.OpBitcast(ctx.F32[1], ctx.OpLoad(ctx.U32[1], ctx.vertex_id));
         } else {
-            const Id index{ctx.OpLoad(ctx.U32[1], ctx.vertex_index)};
-            const Id base{ctx.OpLoad(ctx.U32[1], ctx.base_vertex)};
-            return ctx.OpBitcast(ctx.F32[1], ctx.OpISub(ctx.U32[1], index, base));
+            return ctx.OpBitcast(ctx.F32[1], ctx.OpLoad(ctx.U32[1], ctx.vertex_index));
         }
     case IR::Attribute::BaseInstance:
         return ctx.OpBitcast(ctx.F32[1], ctx.OpLoad(ctx.U32[1], ctx.base_instance));
@@ -386,9 +384,7 @@ Id EmitGetAttributeU32(EmitContext& ctx, IR::Attribute attr, Id) {
         if (ctx.profile.support_vertex_instance_id) {
             return ctx.OpLoad(ctx.U32[1], ctx.vertex_id);
         } else {
-            const Id index{ctx.OpLoad(ctx.U32[1], ctx.vertex_index)};
-            const Id base{ctx.OpLoad(ctx.U32[1], ctx.base_vertex)};
-            return ctx.OpISub(ctx.U32[1], index, base);
+            return ctx.OpLoad(ctx.U32[1], ctx.vertex_index);
         }
     case IR::Attribute::BaseInstance:
         return ctx.OpLoad(ctx.U32[1], ctx.base_instance);
