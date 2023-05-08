@@ -75,8 +75,8 @@ private:
     std::unique_ptr<ConfigureAudio> audio_tab;
     std::unique_ptr<ConfigureCpu> cpu_tab;
     std::unique_ptr<ConfigureGeneral> general_tab;
-    std::unique_ptr<ConfigureGraphics> graphics_tab;
     std::unique_ptr<ConfigureGraphicsAdvanced> graphics_advanced_tab;
+    std::unique_ptr<ConfigureGraphics> graphics_tab;
     std::unique_ptr<ConfigureInputPerGame> input_tab;
     std::unique_ptr<ConfigureSystem> system_tab;
 };

@@ -137,6 +137,17 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="enable_compute_pipelines_checkbox">
+          <property name="toolTip">
+           <string>Enable compute pipelines, required by some games. This setting only exists for Intel proprietary drivers, and may crash if enabled.
+Compute pipelines are always enabled on all other drivers.</string>
+          </property>
+          <property name="text">
+           <string>Enable Compute Pipelines (Intel Vulkan only)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QWidget" name="af_layout" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_1">
            <property name="leftMargin">

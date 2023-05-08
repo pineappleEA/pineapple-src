@@ -12,6 +12,8 @@ ConfigureGraphicsAdvanced::ConfigureGraphicsAdvanced(const Core::System& system_
 
     ui->setupUi(this);
 
+    ui->enable_compute_pipelines_checkbox->setVisible(false);
+
     SetupPerGameUI();
 
     SetConfiguration();
@@ -27,6 +29,7 @@ void ConfigureGraphicsAdvanced::SetConfiguration() {
     ui->async_astc->setEnabled(runtime_lock);
     ui->use_asynchronous_shaders->setEnabled(runtime_lock);
     ui->anisotropic_filtering_combobox->setEnabled(runtime_lock);
+    ui->enable_compute_pipelines_checkbox->setEnabled(runtime_lock);
 
     ui->async_present->setChecked(Settings::values.async_presentation.GetValue());
     ui->renderer_force_max_clock->setChecked(Settings::values.renderer_force_max_clock.GetValue());
@@ -36,6 +39,8 @@ void ConfigureGraphicsAdvanced::SetConfiguration() {
     ui->use_fast_gpu_time->setChecked(Settings::values.use_fast_gpu_time.GetValue());
     ui->use_vulkan_driver_pipeline_cache->setChecked(
         Settings::values.use_vulkan_driver_pipeline_cache.GetValue());
+    ui->enable_compute_pipelines_checkbox->setChecked(
+        Settings::values.enable_compute_pipelines.GetValue());
 
     if (Settings::IsConfiguringGlobal()) {
         ui->gpu_accuracy->setCurrentIndex(
@@ -74,6 +79,9 @@ void ConfigureGraphicsAdvanced::ApplyConfiguration() {
     ConfigurationShared::ApplyPerGameSetting(&Settings::values.use_vulkan_driver_pipeline_cache,
                                              ui->use_vulkan_driver_pipeline_cache,
                                              use_vulkan_driver_pipeline_cache);
+    ConfigurationShared::ApplyPerGameSetting(&Settings::values.enable_compute_pipelines,
+                                             ui->enable_compute_pipelines_checkbox,
+                                             enable_compute_pipelines);
 }
 
 void ConfigureGraphicsAdvanced::changeEvent(QEvent* event) {
@@ -104,6 +112,8 @@ void ConfigureGraphicsAdvanced::SetupPerGameUI() {
             Settings::values.use_vulkan_driver_pipeline_cache.UsingGlobal());
         ui->anisotropic_filtering_combobox->setEnabled(
             Settings::values.max_anisotropy.UsingGlobal());
+        ui->enable_compute_pipelines_checkbox->setEnabled(
+            Settings::values.enable_compute_pipelines.UsingGlobal());
 
         return;
     }
@@ -125,10 +135,17 @@ void ConfigureGraphicsAdvanced::SetupPerGameUI() {
     ConfigurationShared::SetColoredTristate(ui->use_vulkan_driver_pipeline_cache,
                                             Settings::values.use_vulkan_driver_pipeline_cache,
                                             use_vulkan_driver_pipeline_cache);
+    ConfigurationShared::SetColoredTristate(ui->enable_compute_pipelines_checkbox,
+                                            Settings::values.enable_compute_pipelines,
+                                            enable_compute_pipelines);
     ConfigurationShared::SetColoredComboBox(
         ui->gpu_accuracy, ui->label_gpu_accuracy,
         static_cast<int>(Settings::values.gpu_accuracy.GetValue(true)));
     ConfigurationShared::SetColoredComboBox(
         ui->anisotropic_filtering_combobox, ui->af_label,
         static_cast<int>(Settings::values.max_anisotropy.GetValue(true)));
+}
+
+void ConfigureGraphicsAdvanced::ExposeComputeOption() {
+    ui->enable_compute_pipelines_checkbox->setVisible(true);
 }

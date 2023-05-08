@@ -105,6 +105,7 @@ public:
                                 VirtualDir parent = nullptr);
     ~VectorVfsDirectory() override;
 
+    VirtualFile GetFile(std::string_view file_name) const override;
     std::vector<VirtualFile> GetFiles() const override;
     std::vector<VirtualDir> GetSubdirectories() const override;
     bool IsWritable() const override;
@@ -126,6 +127,9 @@ private:
 
     VirtualDir parent;
     std::string name;
+
+    mutable std::map<std::string, size_t, std::less<>> optimized_file_index;
+    mutable bool optimized_file_index_built{};
 };
 
 } // namespace FileSys

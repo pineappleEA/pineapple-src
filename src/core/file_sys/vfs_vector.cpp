@@ -67,6 +67,23 @@ VectorVfsDirectory::VectorVfsDirectory(std::vector<VirtualFile> files_,
 
 VectorVfsDirectory::~VectorVfsDirectory() = default;
 
+VirtualFile VectorVfsDirectory::GetFile(std::string_view file_name) const {
+    if (!optimized_file_index_built) {
+        optimized_file_index.clear();
+        for (size_t i = 0; i < files.size(); i++) {
+            optimized_file_index.emplace(files[i]->GetName(), i);
+        }
+        optimized_file_index_built = true;
+    }
+
+    const auto it = optimized_file_index.find(file_name);
+    if (it != optimized_file_index.end()) {
+        return files[it->second];
+    }
+
+    return nullptr;
+}
+
 std::vector<VirtualFile> VectorVfsDirectory::GetFiles() const {
     return files;
 }
@@ -107,6 +124,7 @@ bool VectorVfsDirectory::DeleteSubdirectory(std::string_view subdir_name) {
 }
 
 bool VectorVfsDirectory::DeleteFile(std::string_view file_name) {
+    optimized_file_index_built = false;
     return FindAndRemoveVectorElement(files, file_name);
 }
 
@@ -124,6 +142,7 @@ VirtualFile VectorVfsDirectory::CreateFile(std::string_view file_name) {
 }
 
 void VectorVfsDirectory::AddFile(VirtualFile file) {
+    optimized_file_index_built = false;
     files.push_back(std::move(file));
 }
 

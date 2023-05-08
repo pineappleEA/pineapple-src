@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <vector>
 #include <QColor>
@@ -37,7 +38,9 @@ class ConfigureGraphics : public QWidget {
     Q_OBJECT
 
 public:
-    explicit ConfigureGraphics(const Core::System& system_, QWidget* parent = nullptr);
+    explicit ConfigureGraphics(const Core::System& system_,
+                               const std::function<void()>& expose_compute_option_,
+                               QWidget* parent = nullptr);
     ~ConfigureGraphics() override;
 
     void ApplyConfiguration();
@@ -81,6 +84,7 @@ private:
                                       // selection in the combobox
     u32 vulkan_device{};
     Settings::ShaderBackend shader_backend{};
+    const std::function<void()>& expose_compute_option;
 
     const Core::System& system;
 };

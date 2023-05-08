@@ -2,9 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 // Include this early to include Vulkan headers how we want to
+#include "video_core/vulkan_common/vulkan_device.h"
 #include "video_core/vulkan_common/vulkan_wrapper.h"
 
 #include <algorithm>
+#include <functional>
 #include <iosfwd>
 #include <iterator>
 #include <string>
@@ -74,8 +76,11 @@ static constexpr Settings::VSyncMode PresentModeToSetting(VkPresentModeKHR mode)
     }
 }
 
-ConfigureGraphics::ConfigureGraphics(const Core::System& system_, QWidget* parent)
-    : QWidget(parent), ui{std::make_unique<Ui::ConfigureGraphics>()}, system{system_} {
+ConfigureGraphics::ConfigureGraphics(const Core::System& system_,
+                                     const std::function<void()>& expose_compute_option_,
+                                     QWidget* parent)
+    : QWidget(parent), ui{std::make_unique<Ui::ConfigureGraphics>()},
+      expose_compute_option{expose_compute_option_}, system{system_} {
     vulkan_device = Settings::values.vulkan_device.GetValue();
     RetrieveVulkanDevices();
 
@@ -513,8 +518,7 @@ void ConfigureGraphics::RetrieveVulkanDevices() try {
     const Common::DynamicLibrary library = OpenLibrary();
     const vk::Instance instance = CreateInstance(library, dld, VK_API_VERSION_1_1, wsi.type);
     const std::vector<VkPhysicalDevice> physical_devices = instance.EnumeratePhysicalDevices();
-    vk::SurfaceKHR surface = //< needed to view present modes for a device
-        CreateSurface(instance, wsi);
+    vk::SurfaceKHR surface = CreateSurface(instance, wsi);
 
     vulkan_devices.clear();
     vulkan_devices.reserve(physical_devices.size());
@@ -527,6 +531,17 @@ void ConfigureGraphics::RetrieveVulkanDevices() try {
             physical_device.GetSurfacePresentModesKHR(*surface);
         vulkan_devices.push_back(QString::fromStdString(name));
         device_present_modes.push_back(present_modes);
+
+        VkPhysicalDeviceDriverProperties driver_properties{};
+        driver_properties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES;
+        driver_properties.pNext = nullptr;
+        VkPhysicalDeviceProperties2 properties{};
+        properties.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2_KHR;
+        properties.pNext = &driver_properties;
+        dld.vkGetPhysicalDeviceProperties2(physical_device, &properties);
+        if (driver_properties.driverID == VK_DRIVER_ID_INTEL_PROPRIETARY_WINDOWS) {
+            expose_compute_option();
+        }
     }
 } catch (const Vulkan::vk::Exception& exception) {
     LOG_ERROR(Frontend, "Failed to enumerate devices with error: {}", exception.what());

@@ -28,6 +28,8 @@ public:
     void ApplyConfiguration();
     void SetConfiguration();
 
+    void ExposeComputeOption();
+
 private:
     void changeEvent(QEvent* event) override;
     void RetranslateUI();
@@ -44,6 +46,7 @@ private:
     ConfigurationShared::CheckState use_asynchronous_shaders;
     ConfigurationShared::CheckState use_fast_gpu_time;
     ConfigurationShared::CheckState use_vulkan_driver_pipeline_cache;
+    ConfigurationShared::CheckState enable_compute_pipelines;
 
     const Core::System& system;
 };

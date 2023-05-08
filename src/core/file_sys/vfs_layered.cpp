@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <utility>
 #include "core/file_sys/vfs_layered.h"
+#include "core/file_sys/vfs_types.h"
 
 namespace FileSys {
 
@@ -58,11 +59,13 @@ std::string LayeredVfsDirectory::GetFullPath() const {
 
 std::vector<VirtualFile> LayeredVfsDirectory::GetFiles() const {
     std::vector<VirtualFile> out;
+    std::map<std::string, size_t, std::less<>> out_positions;
+
     for (const auto& layer : dirs) {
         for (const auto& file : layer->GetFiles()) {
-            if (std::find_if(out.begin(), out.end(), [&file](const VirtualFile& comp) {
-                    return comp->GetName() == file->GetName();
-                }) == out.end()) {
+            auto file_name = file->GetName();
+            if (!out_positions.contains(file_name)) {
+                out_positions.emplace(std::move(file_name), out.size());
                 out.push_back(file);
             }
         }

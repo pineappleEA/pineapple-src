@@ -698,7 +698,8 @@ std::unique_ptr<ComputePipeline> PipelineCache::CreateComputePipeline(
     PipelineStatistics* statistics, bool build_in_parallel) try {
     // TODO: Remove this when Intel fixes their shader compiler.
     //       https://github.com/IGCIT/Intel-GPU-Community-Issue-Tracker-IGCIT/issues/159
-    if (device.GetDriverID() == VK_DRIVER_ID_INTEL_PROPRIETARY_WINDOWS) {
+    if (device.GetDriverID() == VK_DRIVER_ID_INTEL_PROPRIETARY_WINDOWS &&
+        !Settings::values.enable_compute_pipelines.GetValue()) {
         LOG_ERROR(Render_Vulkan, "Skipping 0x{:016x}", key.Hash());
         return nullptr;
     }
