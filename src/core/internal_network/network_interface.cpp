@@ -200,7 +200,7 @@ std::optional<NetworkInterface> GetSelectedNetworkInterface() {
         });
 
     if (res == network_interfaces.end()) {
-        LOG_ERROR(Network, "Couldn't find selected interface \"{}\"", selected_network_interface);
+        LOG_DEBUG(Network, "Couldn't find selected interface \"{}\"", selected_network_interface);
         return std::nullopt;
     }
 

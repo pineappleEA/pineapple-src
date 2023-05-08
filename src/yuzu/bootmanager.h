@@ -8,7 +8,6 @@
 #include <cstddef>
 #include <memory>
 #include <mutex>
-#include <stop_token>
 #include <utility>
 #include <vector>
 
