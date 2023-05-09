@@ -23,6 +23,8 @@ public:
     static constexpr float GyroMaxValue = 5.0f;
     static constexpr float AccelMaxValue = 7.0f;
 
+    static constexpr std::size_t CalibrationSamples = 300;
+
     explicit MotionInput();
 
     MotionInput(const MotionInput&) = default;
@@ -49,6 +51,8 @@ public:
     void UpdateRotation(u64 elapsed_time);
     void UpdateOrientation(u64 elapsed_time);
 
+    void Calibrate();
+
     [[nodiscard]] std::array<Common::Vec3f, 3> GetOrientation() const;
     [[nodiscard]] Common::Vec3f GetAcceleration() const;
     [[nodiscard]] Common::Vec3f GetGyroscope() const;
@@ -61,6 +65,7 @@ public:
     [[nodiscard]] bool IsCalibrated(f32 sensitivity) const;
 
 private:
+    void StopCalibration();
     void ResetOrientation();
     void SetOrientationFromAccelerometer();
 
@@ -103,6 +108,12 @@ private:
 
     // Use accelerometer values to calculate position
     bool only_accelerometer = true;
+
+    // When enabled it will aggressively adjust for gyro drift
+    bool calibration_mode = false;
+
+    // Used to auto disable calibration mode
+    std::size_t calibration_counter = 0;
 };
 
 } // namespace Core::HID

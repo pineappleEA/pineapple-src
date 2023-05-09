@@ -12,11 +12,11 @@ ConfigureGraphicsAdvanced::ConfigureGraphicsAdvanced(const Core::System& system_
 
     ui->setupUi(this);
 
-    ui->enable_compute_pipelines_checkbox->setVisible(false);
-
     SetupPerGameUI();
 
     SetConfiguration();
+
+    ui->enable_compute_pipelines_checkbox->setVisible(false);
 }
 
 ConfigureGraphicsAdvanced::~ConfigureGraphicsAdvanced() = default;

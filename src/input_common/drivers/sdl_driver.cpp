@@ -109,14 +109,37 @@ public:
     }
 
     bool RumblePlay(const Common::Input::VibrationStatus vibration) {
-        constexpr u32 rumble_max_duration_ms = 1000;
+        constexpr u32 rumble_max_duration_ms = 2000;
+        constexpr f32 low_start_sensitivity_limit = 140.0;
+        constexpr f32 low_width_sensitivity_limit = 400.0;
+        constexpr f32 high_start_sensitivity_limit = 200.0;
+        constexpr f32 high_width_sensitivity_limit = 700.0;
+        // Try to provide some feeling of the frequency by reducing the amplitude depending on it.
+        f32 low_frequency_scale = 1.0;
+        if (vibration.low_frequency > low_start_sensitivity_limit) {
+            low_frequency_scale =
+                std::max(1.0f - (vibration.low_frequency - low_start_sensitivity_limit) /
+                                    low_width_sensitivity_limit,
+                         0.3f);
+        }
+        f32 low_amplitude = vibration.low_amplitude * low_frequency_scale;
+
+        f32 high_frequency_scale = 1.0;
+        if (vibration.high_frequency > high_start_sensitivity_limit) {
+            high_frequency_scale =
+                std::max(1.0f - (vibration.high_frequency - high_start_sensitivity_limit) /
+                                    high_width_sensitivity_limit,
+                         0.3f);
+        }
+        f32 high_amplitude = vibration.high_amplitude * high_frequency_scale;
+
         if (sdl_controller) {
-            return SDL_GameControllerRumble(
-                       sdl_controller.get(), static_cast<u16>(vibration.low_amplitude),
-                       static_cast<u16>(vibration.high_amplitude), rumble_max_duration_ms) != -1;
+            return SDL_GameControllerRumble(sdl_controller.get(), static_cast<u16>(low_amplitude),
+                                            static_cast<u16>(high_amplitude),
+                                            rumble_max_duration_ms) != -1;
         } else if (sdl_joystick) {
-            return SDL_JoystickRumble(sdl_joystick.get(), static_cast<u16>(vibration.low_amplitude),
-                                      static_cast<u16>(vibration.high_amplitude),
+            return SDL_JoystickRumble(sdl_joystick.get(), static_cast<u16>(low_amplitude),
+                                      static_cast<u16>(high_amplitude),
                                       rumble_max_duration_ms) != -1;
         }
 

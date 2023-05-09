@@ -290,6 +290,9 @@ public:
      */
     void SetMotionParam(std::size_t index, Common::ParamPackage param);
 
+    /// Auto calibrates the current motion devices
+    void StartMotionCalibration();
+
     /// Returns the latest button status from the controller with parameters
     ButtonValues GetButtonsValues() const;
 

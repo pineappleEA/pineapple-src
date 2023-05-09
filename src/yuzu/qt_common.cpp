@@ -8,7 +8,7 @@
 #include "core/frontend/emu_window.h"
 #include "yuzu/qt_common.h"
 
-#ifdef __linux__
+#if !defined(WIN32) && !defined(__APPLE__)
 #include <qpa/qplatformnativeinterface.h>
 #endif
 

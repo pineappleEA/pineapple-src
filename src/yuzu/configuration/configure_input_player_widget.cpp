@@ -582,9 +582,9 @@ void PlayerControlPreview::DrawDualController(QPainter& p, const QPointF center)
         using namespace Settings::NativeMotion;
         p.setPen(colors.outline);
         p.setBrush(colors.transparent);
-        Draw3dCube(p, center + QPointF(-180, -5),
+        Draw3dCube(p, center + QPointF(-180, 90),
                    motion_values[Settings::NativeMotion::MotionLeft].euler, 20.0f);
-        Draw3dCube(p, center + QPointF(180, -5),
+        Draw3dCube(p, center + QPointF(180, 90),
                    motion_values[Settings::NativeMotion::MotionRight].euler, 20.0f);
     }
 
@@ -2926,14 +2926,14 @@ void PlayerControlPreview::DrawArrow(QPainter& p, const QPointF center, const Di
 void PlayerControlPreview::Draw3dCube(QPainter& p, QPointF center, const Common::Vec3f& euler,
                                       float size) {
     std::array<Common::Vec3f, 8> cube{
-        Common::Vec3f{-1, -1, -1},
-        {-1, 1, -1},
-        {1, 1, -1},
-        {1, -1, -1},
-        {-1, -1, 1},
-        {-1, 1, 1},
-        {1, 1, 1},
-        {1, -1, 1},
+        Common::Vec3f{-0.7f, -1, -0.5f},
+        {-0.7f, 1, -0.5f},
+        {0.7f, 1, -0.5f},
+        {0.7f, -1, -0.5f},
+        {-0.7f, -1, 0.5f},
+        {-0.7f, 1, 0.5f},
+        {0.7f, 1, 0.5f},
+        {0.7f, -1, 0.5f},
     };
 
     for (Common::Vec3f& point : cube) {

@@ -1284,7 +1284,7 @@ typename BufferCache<P>::OverlapResult BufferCache<P>::ResolveOverlaps(VAddr cpu
         const VAddr overlap_cpu_addr = overlap.CpuAddr();
         const bool expands_left = overlap_cpu_addr < begin;
         if (expands_left) {
-            cpu_addr = begin = overlap_cpu_addr;
+            begin = overlap_cpu_addr;
         }
         const VAddr overlap_end = overlap_cpu_addr + overlap.SizeBytes();
         const bool expands_right = overlap_end > end;
@@ -1297,8 +1297,10 @@ typename BufferCache<P>::OverlapResult BufferCache<P>::ResolveOverlaps(VAddr cpu
             // as a stream buffer. Increase the size to skip constantly recreating buffers.
             has_stream_leap = true;
             if (expands_right) {
-                begin -= CACHING_PAGESIZE * 256;
-                cpu_addr = begin;
+                begin -= YUZU_PAGESIZE * 256;
+                // We're about to increment cpu_addr by YUZU_PAGESIZE, but have not yet checked for
+                // a buffer at the new begin.
+                cpu_addr = begin - YUZU_PAGESIZE;
             }
             if (expands_left) {
                 end += CACHING_PAGESIZE * 256;
@@ -1321,7 +1323,7 @@ void BufferCache<P>::JoinOverlap(BufferId new_buffer_id, BufferId overlap_id,
     if (accumulate_stream_score) {
         new_buffer.IncreaseStreamScore(overlap.StreamScore() + 1);
     }
-    boost::container::small_vector<BufferCopy, 1> copies;
+    boost::container::small_vector<BufferCopy, 10> copies;
     const size_t dst_base_offset = overlap.CpuAddr() - new_buffer.CpuAddr();
     copies.push_back(BufferCopy{
         .src_offset = 0,

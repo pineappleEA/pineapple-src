@@ -479,6 +479,9 @@ ConfigureInputPlayer::ConfigureInputPlayer(QWidget* parent, std::size_t player_i
                             param.Set("threshold", new_threshold / 1000.0f);
                             emulated_controller->SetMotionParam(motion_id, param);
                         });
+                        context_menu.addAction(tr("Calibrate sensor"), [&] {
+                            emulated_controller->StartMotionCalibration();
+                        });
                     }
                     context_menu.exec(motion_map[motion_id]->mapToGlobal(menu_location));
                 });

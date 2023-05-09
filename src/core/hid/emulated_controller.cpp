@@ -688,6 +688,12 @@ void EmulatedController::SetMotionParam(std::size_t index, Common::ParamPackage 
     ReloadInput();
 }
 
+void EmulatedController::StartMotionCalibration() {
+    for (ControllerMotionInfo& motion : controller.motion_values) {
+        motion.emulated.Calibrate();
+    }
+}
+
 void EmulatedController::SetButton(const Common::Input::CallbackStatus& callback, std::size_t index,
                                    Common::UUID uuid) {
     if (index >= controller.button_values.size()) {

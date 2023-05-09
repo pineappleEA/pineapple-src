@@ -37,9 +37,15 @@ void MotionInput::SetGyroscope(const Common::Vec3f& gyroscope) {
     gyro.y = std::clamp(gyro.y, -GyroMaxValue, GyroMaxValue);
     gyro.z = std::clamp(gyro.z, -GyroMaxValue, GyroMaxValue);
 
-    // Auto adjust drift to minimize drift
+    // Auto adjust gyro_bias to minimize drift
     if (!IsMoving(IsAtRestRelaxed)) {
         gyro_bias = (gyro_bias * 0.9999f) + (gyroscope * 0.0001f);
+    }
+
+    // Adjust drift when calibration mode is enabled
+    if (calibration_mode) {
+        gyro_bias = (gyro_bias * 0.99f) + (gyroscope * 0.01f);
+        StopCalibration();
     }
 
     if (gyro.Length() < gyro_threshold * user_gyro_threshold) {
@@ -105,6 +111,19 @@ void MotionInput::UpdateRotation(u64 elapsed_time) {
         return;
     }
     rotations += gyro * sample_period;
+}
+
+void MotionInput::Calibrate() {
+    calibration_mode = true;
+    calibration_counter = 0;
+}
+
+void MotionInput::StopCalibration() {
+    if (calibration_counter++ > CalibrationSamples) {
+        calibration_mode = false;
+        ResetQuaternion();
+        ResetRotations();
+    }
 }
 
 // Based on Madgwick's implementation of Mayhony's AHRS algorithm.
