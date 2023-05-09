@@ -64,13 +64,6 @@ jobs:
         with:
           name: ${{ matrix.type }}
           path: artifacts/
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.event.number }}
-          token: ${{ secrets.RELEASE_TOKEN }}
-          files: artifacts/*
-        
   build-msvc:
     name: 'test build (windows, msvc)'
     needs: format
