@@ -536,6 +536,8 @@ struct Values {
     Setting<bool> enable_ir_sensor{false, "enable_ir_sensor"};
     Setting<std::string> ir_sensor_device{"auto", "ir_sensor_device"};
 
+    Setting<bool> random_amiibo_id{false, "random_amiibo_id"};
+
     // Data Storage
     Setting<bool> use_virtual_sd{true, "use_virtual_sd"};
     Setting<bool> gamecard_inserted{false, "gamecard_inserted"};

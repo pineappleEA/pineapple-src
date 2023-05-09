@@ -227,11 +227,20 @@ Result NfcDevice::GetTagInfo(NFP::TagInfo& tag_info, bool is_mifare) const {
         return ResultWrongDeviceState;
     }
 
+    UniqueSerialNumber uuid = encrypted_tag_data.uuid.uid;
+
+    // Generate random UUID to bypass amiibo load limits
+    if (Settings::values.random_amiibo_id) {
+        Common::TinyMT rng{};
+        rng.GenerateRandomBytes(uuid.data(), sizeof(UniqueSerialNumber));
+        uuid[3] = 0x88 ^ uuid[0] ^ uuid[1] ^ uuid[2];
+    }
+
     if (is_mifare) {
         tag_info = {
-            .uuid = encrypted_tag_data.uuid.uid,
+            .uuid = uuid,
             .uuid_extension = {},
-            .uuid_length = static_cast<u8>(encrypted_tag_data.uuid.uid.size()),
+            .uuid_length = static_cast<u8>(uuid.size()),
             .protocol = NfcProtocol::TypeA,
             .tag_type = TagType::Type4,
         };
@@ -240,9 +249,9 @@ Result NfcDevice::GetTagInfo(NFP::TagInfo& tag_info, bool is_mifare) const {
 
     // Protocol and tag type may change here
     tag_info = {
-        .uuid = encrypted_tag_data.uuid.uid,
+        .uuid = uuid,
         .uuid_extension = {},
-        .uuid_length = static_cast<u8>(encrypted_tag_data.uuid.uid.size()),
+        .uuid_length = static_cast<u8>(uuid.size()),
         .protocol = NfcProtocol::TypeA,
         .tag_type = TagType::Type2,
     };

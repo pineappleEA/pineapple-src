@@ -278,7 +278,6 @@ DriverResult NfcProtocol::GetAmiiboData(std::vector<u8>& ntag_data) {
 
 DriverResult NfcProtocol::SendStartPollingRequest(MCUCommandResponse& output) {
     NFCRequestState request{
-        .sub_command = MCUSubCommand::ReadDeviceMode,
         .command_argument = NFCReadCommand::StartPolling,
         .packet_id = 0x0,
         .packet_flag = MCUPacketFlag::LastCommandPacket,
@@ -296,13 +295,13 @@ DriverResult NfcProtocol::SendStartPollingRequest(MCUCommandResponse& output) {
 
     std::array<u8, sizeof(NFCRequestState)> request_data{};
     memcpy(request_data.data(), &request, sizeof(NFCRequestState));
-    request_data[37] = CalculateMCU_CRC8(request_data.data() + 1, 36);
-    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, SubCommand::STATE, request_data, output);
+    request_data[36] = CalculateMCU_CRC8(request_data.data(), 36);
+    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, MCUSubCommand::ReadDeviceMode, request_data,
+                       output);
 }
 
 DriverResult NfcProtocol::SendStopPollingRequest(MCUCommandResponse& output) {
     NFCRequestState request{
-        .sub_command = MCUSubCommand::ReadDeviceMode,
         .command_argument = NFCReadCommand::StopPolling,
         .packet_id = 0x0,
         .packet_flag = MCUPacketFlag::LastCommandPacket,
@@ -313,13 +312,13 @@ DriverResult NfcProtocol::SendStopPollingRequest(MCUCommandResponse& output) {
 
     std::array<u8, sizeof(NFCRequestState)> request_data{};
     memcpy(request_data.data(), &request, sizeof(NFCRequestState));
-    request_data[37] = CalculateMCU_CRC8(request_data.data() + 1, 36);
-    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, SubCommand::STATE, request_data, output);
+    request_data[36] = CalculateMCU_CRC8(request_data.data(), 36);
+    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, MCUSubCommand::ReadDeviceMode, request_data,
+                       output);
 }
 
 DriverResult NfcProtocol::SendStartWaitingRecieveRequest(MCUCommandResponse& output) {
     NFCRequestState request{
-        .sub_command = MCUSubCommand::ReadDeviceMode,
         .command_argument = NFCReadCommand::StartWaitingRecieve,
         .packet_id = 0x0,
         .packet_flag = MCUPacketFlag::LastCommandPacket,
@@ -330,13 +329,13 @@ DriverResult NfcProtocol::SendStartWaitingRecieveRequest(MCUCommandResponse& out
 
     std::vector<u8> request_data(sizeof(NFCRequestState));
     memcpy(request_data.data(), &request, sizeof(NFCRequestState));
-    request_data[37] = CalculateMCU_CRC8(request_data.data() + 1, 36);
-    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, SubCommand::STATE, request_data, output);
+    request_data[36] = CalculateMCU_CRC8(request_data.data(), 36);
+    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, MCUSubCommand::ReadDeviceMode, request_data,
+                       output);
 }
 
 DriverResult NfcProtocol::SendReadAmiiboRequest(MCUCommandResponse& output, NFCPages ntag_pages) {
     NFCRequestState request{
-        .sub_command = MCUSubCommand::ReadDeviceMode,
         .command_argument = NFCReadCommand::Ntag,
         .packet_id = 0x0,
         .packet_flag = MCUPacketFlag::LastCommandPacket,
@@ -355,8 +354,9 @@ DriverResult NfcProtocol::SendReadAmiiboRequest(MCUCommandResponse& output, NFCP
 
     std::array<u8, sizeof(NFCRequestState)> request_data{};
     memcpy(request_data.data(), &request, sizeof(NFCRequestState));
-    request_data[37] = CalculateMCU_CRC8(request_data.data() + 1, 36);
-    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, SubCommand::STATE, request_data, output);
+    request_data[36] = CalculateMCU_CRC8(request_data.data(), 36);
+    return SendMCUData(ReportMode::NFC_IR_MODE_60HZ, MCUSubCommand::ReadDeviceMode, request_data,
+                       output);
 }
 
 NFCReadBlockCommand NfcProtocol::GetReadBlockCommand(NFCPages pages) const {

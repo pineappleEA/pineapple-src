@@ -156,7 +156,7 @@ public:
      * @param buffer data to be send
      * @returns output buffer containing the response
      */
-    DriverResult SendMCUData(ReportMode report_mode, SubCommand sc, std::span<const u8> buffer,
+    DriverResult SendMCUData(ReportMode report_mode, MCUSubCommand sc, std::span<const u8> buffer,
                              MCUCommandResponse& output);
 
     /**

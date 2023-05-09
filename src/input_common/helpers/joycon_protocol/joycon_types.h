@@ -575,7 +575,6 @@ struct NFCPollingCommandData {
 static_assert(sizeof(NFCPollingCommandData) == 0x05, "NFCPollingCommandData is an invalid size");
 
 struct NFCRequestState {
-    MCUSubCommand sub_command;
     NFCReadCommand command_argument;
     u8 packet_id;
     INSERT_PADDING_BYTES(0x1);
@@ -587,6 +586,7 @@ struct NFCRequestState {
         NFCPollingCommandData nfc_polling;
     };
     u8 crc;
+    INSERT_PADDING_BYTES(0x1);
 };
 static_assert(sizeof(NFCRequestState) == 0x26, "NFCRequestState is an invalid size");
 
@@ -659,7 +659,10 @@ struct SubCommandPacket {
     OutputReport output_report;
     u8 packet_counter;
     INSERT_PADDING_BYTES(0x8); // This contains vibration data
-    SubCommand sub_command;
+    union {
+        SubCommand sub_command;
+        MCUSubCommand mcu_sub_command;
+    };
     std::array<u8, 0x26> command_data;
 };
 static_assert(sizeof(SubCommandPacket) == 0x31, "SubCommandPacket is an invalid size");

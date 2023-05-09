@@ -443,6 +443,7 @@ void Config::ReadControlValues() {
     ReadBasicSetting(Settings::values.mouse_panning_sensitivity);
     ReadBasicSetting(Settings::values.enable_joycon_driver);
     ReadBasicSetting(Settings::values.enable_procon_driver);
+    ReadBasicSetting(Settings::values.random_amiibo_id);
 
     ReadBasicSetting(Settings::values.tas_enable);
     ReadBasicSetting(Settings::values.tas_loop);
@@ -1151,6 +1152,7 @@ void Config::SaveControlValues() {
     WriteBasicSetting(Settings::values.enable_raw_input);
     WriteBasicSetting(Settings::values.enable_joycon_driver);
     WriteBasicSetting(Settings::values.enable_procon_driver);
+    WriteBasicSetting(Settings::values.random_amiibo_id);
     WriteBasicSetting(Settings::values.keyboard_enabled);
     WriteBasicSetting(Settings::values.emulate_analog_keyboard);
     WriteBasicSetting(Settings::values.mouse_panning_sensitivity);

@@ -2728,6 +2728,22 @@
                      </widget>
                    </item>
                    <item row="7" column="0">
+                     <widget class="QCheckBox" name="random_amiibo_id">
+                       <property name="toolTip">
+                         <string>Allows unlimited uses of the same Amiibo in games that would otherwise limit you to one use.</string>
+                       </property>
+                       <property name="minimumSize">
+                         <size>
+                           <width>0</width>
+                           <height>23</height>
+                         </size>
+                       </property>
+                       <property name="text">
+                         <string>Use random Amiibo ID</string>
+                       </property>
+                     </widget>
+                   </item>
+                   <item row="8" column="0">
                      <widget class="QCheckBox" name="mouse_panning">
                        <property name="minimumSize">
                          <size>
@@ -2740,7 +2756,7 @@
                        </property>
                      </widget>
                    </item>
-                   <item row="7" column="2">
+                   <item row="8" column="2">
                      <widget class="QSpinBox" name="mouse_panning_sensitivity">
                        <property name="toolTip">
                          <string>Mouse sensitivity</string>
@@ -2762,14 +2778,14 @@
                        </property>
                      </widget>
                    </item>
-                   <item row="8" column="0">
+                   <item row="9" column="0">
                      <widget class="QLabel" name="motion_touch">
                        <property name="text">
                          <string>Motion / Touch</string>
                        </property>
                      </widget>
                    </item>
-                   <item row="8" column="2">
+                   <item row="9" column="2">
                      <widget class="QPushButton" name="buttonMotionTouch">
                        <property name="text">
                          <string>Configure</string>

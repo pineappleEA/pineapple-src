@@ -169,6 +169,7 @@ void Config::ReadValues() {
     ReadSetting("ControlsGeneral", Settings::values.enable_raw_input);
     ReadSetting("ControlsGeneral", Settings::values.enable_joycon_driver);
     ReadSetting("ControlsGeneral", Settings::values.enable_procon_driver);
+    ReadSetting("ControlsGeneral", Settings::values.random_amiibo_id);
     ReadSetting("ControlsGeneral", Settings::values.emulate_analog_keyboard);
     ReadSetting("ControlsGeneral", Settings::values.vibration_enabled);
     ReadSetting("ControlsGeneral", Settings::values.enable_accurate_vibrations);

@@ -236,13 +236,13 @@ DriverResult JoyconCommonProtocol::GetMCUDataResponse(ReportMode report_mode,
     return DriverResult::Success;
 }
 
-DriverResult JoyconCommonProtocol::SendMCUData(ReportMode report_mode, SubCommand sc,
+DriverResult JoyconCommonProtocol::SendMCUData(ReportMode report_mode, MCUSubCommand sc,
                                                std::span<const u8> buffer,
                                                MCUCommandResponse& output) {
     SubCommandPacket packet{
         .output_report = OutputReport::MCU_DATA,
         .packet_counter = GetCounter(),
-        .sub_command = sc,
+        .mcu_sub_command = sc,
         .command_data = {},
     };
 
@@ -269,8 +269,7 @@ DriverResult JoyconCommonProtocol::WaitSetMCUMode(ReportMode report_mode, MCUMod
     std::size_t tries{};
 
     do {
-        const std::vector<u8> mcu_data{static_cast<u8>(MCUMode::Standby)};
-        const auto result = SendMCUData(report_mode, SubCommand::STATE, mcu_data, output);
+        const auto result = SendMCUData(report_mode, MCUSubCommand::SetDeviceMode, {}, output);
 
         if (result != DriverResult::Success) {
             return result;
