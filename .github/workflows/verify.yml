@@ -6,8 +6,6 @@ name: 'yuzu verify'
 on:
   workflow_dispatch:
   push:
-  pull_request:
-    branches: [ master ]
 env:
   PR_NUMBER: pr${{ github.event.number }}
 
@@ -32,12 +30,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - type: clang
-            image: linux-fresh
           - type: linux
             image: linux-fresh
-          - type: windows
-            image: linux-mingw
     container:
       image: yuzuemu/build-environments:${{ matrix.image }}
       options: -u 1001
@@ -70,6 +64,12 @@ jobs:
         with:
           name: ${{ matrix.type }}
           path: artifacts/
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: artifacts/*
+        
   build-msvc:
     name: 'test build (windows, msvc)'
     needs: format
