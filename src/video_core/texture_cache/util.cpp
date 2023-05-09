@@ -896,11 +896,11 @@ void ConvertImage(std::span<const u8> input, const ImageInfo& info, std::span<u8
         ASSERT(copy.buffer_row_length == Common::AlignUp(mip_size.width, tile_size.width));
         ASSERT(copy.buffer_image_height == Common::AlignUp(mip_size.height, tile_size.height));
         if (IsPixelFormatASTC(info.format)) {
-            ASSERT(copy.image_extent.depth == 1);
-            Tegra::Texture::ASTC::Decompress(input.subspan(copy.buffer_offset),
-                                             copy.image_extent.width, copy.image_extent.height,
-                                             copy.image_subresource.num_layers, tile_size.width,
-                                             tile_size.height, output.subspan(output_offset));
+            Tegra::Texture::ASTC::Decompress(
+                input.subspan(copy.buffer_offset), copy.image_extent.width,
+                copy.image_extent.height,
+                copy.image_subresource.num_layers * copy.image_extent.depth, tile_size.width,
+                tile_size.height, output.subspan(output_offset));
         } else {
             DecompressBC4(input.subspan(copy.buffer_offset), copy.image_extent,
                           output.subspan(output_offset));

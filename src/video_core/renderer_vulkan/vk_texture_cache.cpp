@@ -1268,7 +1268,7 @@ Image::Image(TextureCacheRuntime& runtime_, const ImageInfo& info_, GPUVAddr gpu
     if (IsPixelFormatASTC(info.format) && !runtime->device.IsOptimalAstcSupported()) {
         if (Settings::values.async_astc.GetValue()) {
             flags |= VideoCommon::ImageFlagBits::AsynchronousDecode;
-        } else if (Settings::values.accelerate_astc.GetValue()) {
+        } else if (Settings::values.accelerate_astc.GetValue() && info.size.depth == 1) {
             flags |= VideoCommon::ImageFlagBits::AcceleratedUpload;
         }
         flags |= VideoCommon::ImageFlagBits::Converted;
