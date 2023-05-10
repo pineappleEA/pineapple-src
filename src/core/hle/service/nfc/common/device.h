@@ -105,6 +105,7 @@ private:
     NFP::AmiiboName GetAmiiboName(const NFP::AmiiboSettings& settings) const;
     void SetAmiiboName(NFP::AmiiboSettings& settings, const NFP::AmiiboName& amiibo_name);
     NFP::AmiiboDate GetAmiiboDate(s64 posix_time) const;
+    u64 GetCurrentPosixTime() const;
     u64 RemoveVersionByte(u64 application_id) const;
     void UpdateSettingsCrc();
     void UpdateRegisterInfoCrc();
@@ -127,7 +128,6 @@ private:
     bool is_data_moddified{};
     bool is_app_area_open{};
     bool is_plain_amiibo{};
-    s64 current_posix_time{};
     NFP::MountTarget mount_target{NFP::MountTarget::None};
 
     NFP::NTAG215File tag_data{};

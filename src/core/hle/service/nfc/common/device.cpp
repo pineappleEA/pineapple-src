@@ -48,9 +48,6 @@ NfcDevice::NfcDevice(Core::HID::NpadIdType npad_id_, Core::System& system_,
     };
     is_controller_set = true;
     callback_key = npad_device->SetCallback(engine_callback);
-
-    auto& standard_steady_clock{system.GetTimeManager().GetStandardSteadyClockCore()};
-    current_posix_time = standard_steady_clock.GetCurrentTimePoint(system).time_point;
 }
 
 NfcDevice::~NfcDevice() {
@@ -232,6 +229,7 @@ Result NfcDevice::GetTagInfo(NFP::TagInfo& tag_info, bool is_mifare) const {
     // Generate random UUID to bypass amiibo load limits
     if (Settings::values.random_amiibo_id) {
         Common::TinyMT rng{};
+        rng.Initialize(static_cast<u32>(GetCurrentPosixTime()));
         rng.GenerateRandomBytes(uuid.data(), sizeof(UniqueSerialNumber));
         uuid[3] = 0x88 ^ uuid[0] ^ uuid[1] ^ uuid[2];
     }
@@ -415,7 +413,7 @@ Result NfcDevice::Flush() {
 
     auto& settings = tag_data.settings;
 
-    const auto& current_date = GetAmiiboDate(current_posix_time);
+    const auto& current_date = GetAmiiboDate(GetCurrentPosixTime());
     if (settings.write_date.raw_date != current_date.raw_date) {
         settings.write_date = current_date;
         UpdateSettingsCrc();
@@ -534,6 +532,7 @@ Result NfcDevice::GetModelInfo(NFP::ModelInfo& model_info) const {
     }
 
     const auto& model_info_data = encrypted_tag_data.user_memory.model_info;
+
     model_info = {
         .character_id = model_info_data.character_id,
         .character_variant = model_info_data.character_variant,
@@ -678,6 +677,7 @@ Result NfcDevice::DeleteRegisterInfo() {
     }
 
     Common::TinyMT rng{};
+    rng.Initialize(static_cast<u32>(GetCurrentPosixTime()));
     rng.GenerateRandomBytes(&tag_data.owner_mii, sizeof(tag_data.owner_mii));
     rng.GenerateRandomBytes(&tag_data.settings.amiibo_name, sizeof(tag_data.settings.amiibo_name));
     rng.GenerateRandomBytes(&tag_data.unknown, sizeof(u8));
@@ -710,7 +710,7 @@ Result NfcDevice::SetRegisterInfoPrivate(const NFP::RegisterInfoPrivate& registe
     auto& settings = tag_data.settings;
 
     if (tag_data.settings.settings.amiibo_initialized == 0) {
-        settings.init_date = GetAmiiboDate(current_posix_time);
+        settings.init_date = GetAmiiboDate(GetCurrentPosixTime());
         settings.write_date.raw_date = 0;
     }
 
@@ -877,6 +877,7 @@ Result NfcDevice::SetApplicationArea(std::span<const u8> data) {
     }
 
     Common::TinyMT rng{};
+    rng.Initialize(static_cast<u32>(GetCurrentPosixTime()));
     std::memcpy(tag_data.application_area.data(), data.data(), data.size());
     // Fill remaining data with random numbers
     rng.GenerateRandomBytes(tag_data.application_area.data() + data.size(),
@@ -933,6 +934,7 @@ Result NfcDevice::RecreateApplicationArea(u32 access_id, std::span<const u8> dat
     }
 
     Common::TinyMT rng{};
+    rng.Initialize(static_cast<u32>(GetCurrentPosixTime()));
     std::memcpy(tag_data.application_area.data(), data.data(), data.size());
     // Fill remaining data with random numbers
     rng.GenerateRandomBytes(tag_data.application_area.data() + data.size(),
@@ -982,6 +984,7 @@ Result NfcDevice::DeleteApplicationArea() {
     }
 
     Common::TinyMT rng{};
+    rng.Initialize(static_cast<u32>(GetCurrentPosixTime()));
     rng.GenerateRandomBytes(tag_data.application_area.data(), sizeof(NFP::ApplicationArea));
     rng.GenerateRandomBytes(&tag_data.application_id, sizeof(u64));
     rng.GenerateRandomBytes(&tag_data.application_area_id, sizeof(u32));
@@ -1196,6 +1199,11 @@ NFP::AmiiboDate NfcDevice::GetAmiiboDate(s64 posix_time) const {
     }
 
     return amiibo_date;
+}
+
+u64 NfcDevice::GetCurrentPosixTime() const {
+    auto& standard_steady_clock{system.GetTimeManager().GetStandardSteadyClockCore()};
+    return standard_steady_clock.GetCurrentTimePoint(system).time_point;
 }
 
 u64 NfcDevice::RemoveVersionByte(u64 application_id) const {
