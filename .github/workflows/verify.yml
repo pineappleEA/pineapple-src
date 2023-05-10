@@ -120,9 +120,7 @@ jobs:
           path: ${{ env.INDIVIDUAL_EXE }}
   create-release:
     name: 'Create Release from Artifacts'
-    needs: |
-      build
-      build-msvc
+    needs: [build, build-msvc]
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts
