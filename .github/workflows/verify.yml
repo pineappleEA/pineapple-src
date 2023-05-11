@@ -118,24 +118,3 @@ jobs:
         with:
           name: ${{ env.INDIVIDUAL_EXE }}
           path: ${{ env.INDIVIDUAL_EXE }}
-  create-release:
-    name: 'Create Release from Artifacts'
-    needs: [build, build-msvc]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          path: artifacts/
-      - name: Extract Zips
-        run: for zip in artifacts/*.zip; do unzip $zip -d artifacts; done
-      - name: Release
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: ${{ secrets.RELEASE_TOKEN }}
-          automatic_release_tag: "latest"
-          prerelease: false
-          title: "Yuzu EA"
-          files: |
-            artifacts/*.AppImage
-            artifacts/*.exe
