@@ -798,13 +798,13 @@ TextureCacheRuntime::TextureCacheRuntime(const Device& device_, Scheduler& sched
                                          BlitImageHelper& blit_image_helper_,
                                          RenderPassCache& render_pass_cache_,
                                          DescriptorPool& descriptor_pool,
-                                         UpdateDescriptorQueue& update_descriptor_queue)
+                                         ComputePassDescriptorQueue& compute_pass_descriptor_queue)
     : device{device_}, scheduler{scheduler_}, memory_allocator{memory_allocator_},
       staging_buffer_pool{staging_buffer_pool_}, blit_image_helper{blit_image_helper_},
       render_pass_cache{render_pass_cache_}, resolution{Settings::values.resolution_info} {
     if (Settings::values.accelerate_astc) {
         astc_decoder_pass.emplace(device, scheduler, descriptor_pool, staging_buffer_pool,
-                                  update_descriptor_queue, memory_allocator);
+                                  compute_pass_descriptor_queue, memory_allocator);
     }
 }
 

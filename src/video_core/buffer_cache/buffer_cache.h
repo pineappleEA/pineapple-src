@@ -96,12 +96,12 @@ void BufferCache<P>::TickFrame() {
 
 template <class P>
 void BufferCache<P>::WriteMemory(VAddr cpu_addr, u64 size) {
-    memory_tracker.MarkRegionAsCpuModified(cpu_addr, size);
     if (memory_tracker.IsRegionGpuModified(cpu_addr, size)) {
         const IntervalType subtract_interval{cpu_addr, cpu_addr + size};
         ClearDownload(subtract_interval);
         common_ranges.subtract(subtract_interval);
     }
+    memory_tracker.MarkRegionAsCpuModified(cpu_addr, size);
 }
 
 template <class P>
@@ -122,9 +122,10 @@ std::optional<VideoCore::RasterizerDownloadArea> BufferCache<P>::GetFlushArea(VA
         area->preemtive = true;
         return area;
     };
+    area->preemtive =
+        !IsRegionGpuModified(cpu_addr_start_aligned, cpu_addr_end_aligned - cpu_addr_start_aligned);
     memory_tracker.MarkRegionAsPreflushable(cpu_addr_start_aligned,
                                             cpu_addr_end_aligned - cpu_addr_start_aligned);
-    area->preemtive = !IsRegionGpuModified(cpu_addr, size);
     return area;
 }
 
@@ -1223,11 +1224,10 @@ void BufferCache<P>::UpdateComputeTextureBuffers() {
 
 template <class P>
 void BufferCache<P>::MarkWrittenBuffer(BufferId buffer_id, VAddr cpu_addr, u32 size) {
-    memory_tracker.MarkRegionAsGpuModified(cpu_addr, size);
-
     if (memory_tracker.IsRegionCpuModified(cpu_addr, size)) {
         SynchronizeBuffer(slot_buffers[buffer_id], cpu_addr, size);
     }
+    memory_tracker.MarkRegionAsGpuModified(cpu_addr, size);
 
     const IntervalType base_interval{cpu_addr, cpu_addr + size};
     common_ranges.add(base_interval);

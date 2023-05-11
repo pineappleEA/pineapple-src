@@ -82,7 +82,6 @@ class PipelineStatistics;
 class RasterizerVulkan;
 class RenderPassCache;
 class Scheduler;
-class UpdateDescriptorQueue;
 
 using VideoCommon::ShaderInfo;
 
@@ -102,7 +101,7 @@ class PipelineCache : public VideoCommon::ShaderCache {
 public:
     explicit PipelineCache(RasterizerVulkan& rasterizer, const Device& device, Scheduler& scheduler,
                            DescriptorPool& descriptor_pool,
-                           UpdateDescriptorQueue& update_descriptor_queue,
+                           GuestDescriptorQueue& guest_descriptor_queue,
                            RenderPassCache& render_pass_cache, BufferCache& buffer_cache,
                            TextureCache& texture_cache, VideoCore::ShaderNotify& shader_notify_);
     ~PipelineCache();
@@ -144,7 +143,7 @@ private:
     const Device& device;
     Scheduler& scheduler;
     DescriptorPool& descriptor_pool;
-    UpdateDescriptorQueue& update_descriptor_queue;
+    GuestDescriptorQueue& guest_descriptor_queue;
     RenderPassCache& render_pass_cache;
     BufferCache& buffer_cache;
     TextureCache& texture_cache;

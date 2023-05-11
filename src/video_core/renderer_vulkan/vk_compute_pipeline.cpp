@@ -26,13 +26,13 @@ using Tegra::Texture::TexturePair;
 
 ComputePipeline::ComputePipeline(const Device& device_, vk::PipelineCache& pipeline_cache_,
                                  DescriptorPool& descriptor_pool,
-                                 UpdateDescriptorQueue& update_descriptor_queue_,
+                                 GuestDescriptorQueue& guest_descriptor_queue_,
                                  Common::ThreadWorker* thread_worker,
                                  PipelineStatistics* pipeline_statistics,
                                  VideoCore::ShaderNotify* shader_notify, const Shader::Info& info_,
                                  vk::ShaderModule spv_module_)
-    : device{device_}, pipeline_cache(pipeline_cache_),
-      update_descriptor_queue{update_descriptor_queue_}, info{info_},
+    : device{device_},
+      pipeline_cache(pipeline_cache_), guest_descriptor_queue{guest_descriptor_queue_}, info{info_},
       spv_module(std::move(spv_module_)) {
     if (shader_notify) {
         shader_notify->MarkShaderBuilding();
@@ -99,7 +99,7 @@ ComputePipeline::ComputePipeline(const Device& device_, vk::PipelineCache& pipel
 void ComputePipeline::Configure(Tegra::Engines::KeplerCompute& kepler_compute,
                                 Tegra::MemoryManager& gpu_memory, Scheduler& scheduler,
                                 BufferCache& buffer_cache, TextureCache& texture_cache) {
-    update_descriptor_queue.Acquire();
+    guest_descriptor_queue.Acquire();
 
     buffer_cache.SetComputeUniformBufferState(info.constant_buffer_mask, &uniform_buffer_sizes);
     buffer_cache.UnbindComputeStorageBuffers();
@@ -194,7 +194,7 @@ void ComputePipeline::Configure(Tegra::Engines::KeplerCompute& kepler_compute,
     RescalingPushConstant rescaling;
     const VkSampler* samplers_it{samplers.data()};
     const VideoCommon::ImageViewInOut* views_it{views.data()};
-    PushImageDescriptors(texture_cache, update_descriptor_queue, info, rescaling, samplers_it,
+    PushImageDescriptors(texture_cache, guest_descriptor_queue, info, rescaling, samplers_it,
                          views_it);
 
     if (!is_built.load(std::memory_order::relaxed)) {
@@ -204,7 +204,7 @@ void ComputePipeline::Configure(Tegra::Engines::KeplerCompute& kepler_compute,
             build_condvar.wait(lock, [this] { return is_built.load(std::memory_order::relaxed); });
         });
     }
-    const void* const descriptor_data{update_descriptor_queue.UpdateData()};
+    const void* const descriptor_data{guest_descriptor_queue.UpdateData()};
     const bool is_rescaling = !info.texture_descriptors.empty() || !info.image_descriptors.empty();
     scheduler.Record([this, descriptor_data, is_rescaling,
                       rescaling_data = rescaling.Data()](vk::CommandBuffer cmdbuf) {

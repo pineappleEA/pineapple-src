@@ -160,17 +160,16 @@ RasterizerVulkan::RasterizerVulkan(Core::Frontend::EmuWindow& emu_window_, Tegra
     : RasterizerAccelerated{cpu_memory_}, gpu{gpu_}, screen_info{screen_info_}, device{device_},
       memory_allocator{memory_allocator_}, state_tracker{state_tracker_}, scheduler{scheduler_},
       staging_pool(device, memory_allocator, scheduler), descriptor_pool(device, scheduler),
-      update_descriptor_queue(device, scheduler),
-      blit_image(device, scheduler, state_tracker, descriptor_pool),
-      render_pass_cache(device), texture_cache_runtime{device,           scheduler,
-                                                       memory_allocator, staging_pool,
-                                                       blit_image,       render_pass_cache,
-                                                       descriptor_pool,  update_descriptor_queue},
+      guest_descriptor_queue(device, scheduler), compute_pass_descriptor_queue(device, scheduler),
+      blit_image(device, scheduler, state_tracker, descriptor_pool), render_pass_cache(device),
+      texture_cache_runtime{
+          device,     scheduler,         memory_allocator, staging_pool,
+          blit_image, render_pass_cache, descriptor_pool,  compute_pass_descriptor_queue},
       texture_cache(texture_cache_runtime, *this),
       buffer_cache_runtime(device, memory_allocator, scheduler, staging_pool,
-                           update_descriptor_queue, descriptor_pool),
+                           guest_descriptor_queue, compute_pass_descriptor_queue, descriptor_pool),
       buffer_cache(*this, cpu_memory_, buffer_cache_runtime),
-      pipeline_cache(*this, device, scheduler, descriptor_pool, update_descriptor_queue,
+      pipeline_cache(*this, device, scheduler, descriptor_pool, guest_descriptor_queue,
                      render_pass_cache, buffer_cache, texture_cache, gpu.ShaderNotify()),
       query_cache{*this, cpu_memory_, device, scheduler},
       accelerate_dma(buffer_cache, texture_cache, scheduler),
@@ -669,7 +668,8 @@ void RasterizerVulkan::FlushCommands() {
 
 void RasterizerVulkan::TickFrame() {
     draw_counter = 0;
-    update_descriptor_queue.TickFrame();
+    guest_descriptor_queue.TickFrame();
+    compute_pass_descriptor_queue.TickFrame();
     fence_manager.TickFrame();
     staging_pool.TickFrame();
     {

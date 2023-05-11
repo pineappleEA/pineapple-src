@@ -200,12 +200,12 @@ ComputePass::~ComputePass() = default;
 
 Uint8Pass::Uint8Pass(const Device& device_, Scheduler& scheduler_, DescriptorPool& descriptor_pool,
                      StagingBufferPool& staging_buffer_pool_,
-                     UpdateDescriptorQueue& update_descriptor_queue_)
+                     ComputePassDescriptorQueue& compute_pass_descriptor_queue_)
     : ComputePass(device_, descriptor_pool, INPUT_OUTPUT_DESCRIPTOR_SET_BINDINGS,
                   INPUT_OUTPUT_DESCRIPTOR_UPDATE_TEMPLATE, INPUT_OUTPUT_BANK_INFO, {},
                   VULKAN_UINT8_COMP_SPV),
       scheduler{scheduler_}, staging_buffer_pool{staging_buffer_pool_},
-      update_descriptor_queue{update_descriptor_queue_} {}
+      compute_pass_descriptor_queue{compute_pass_descriptor_queue_} {}
 
 Uint8Pass::~Uint8Pass() = default;
 
@@ -214,10 +214,10 @@ std::pair<VkBuffer, VkDeviceSize> Uint8Pass::Assemble(u32 num_vertices, VkBuffer
     const u32 staging_size = static_cast<u32>(num_vertices * sizeof(u16));
     const auto staging = staging_buffer_pool.Request(staging_size, MemoryUsage::DeviceLocal);
 
-    update_descriptor_queue.Acquire();
-    update_descriptor_queue.AddBuffer(src_buffer, src_offset, num_vertices);
-    update_descriptor_queue.AddBuffer(staging.buffer, staging.offset, staging_size);
-    const void* const descriptor_data{update_descriptor_queue.UpdateData()};
+    compute_pass_descriptor_queue.Acquire();
+    compute_pass_descriptor_queue.AddBuffer(src_buffer, src_offset, num_vertices);
+    compute_pass_descriptor_queue.AddBuffer(staging.buffer, staging.offset, staging_size);
+    const void* const descriptor_data{compute_pass_descriptor_queue.UpdateData()};
 
     scheduler.RequestOutsideRenderPassOperationContext();
     scheduler.Record([this, descriptor_data, num_vertices](vk::CommandBuffer cmdbuf) {
@@ -242,12 +242,12 @@ std::pair<VkBuffer, VkDeviceSize> Uint8Pass::Assemble(u32 num_vertices, VkBuffer
 QuadIndexedPass::QuadIndexedPass(const Device& device_, Scheduler& scheduler_,
                                  DescriptorPool& descriptor_pool_,
                                  StagingBufferPool& staging_buffer_pool_,
-                                 UpdateDescriptorQueue& update_descriptor_queue_)
+                                 ComputePassDescriptorQueue& compute_pass_descriptor_queue_)
     : ComputePass(device_, descriptor_pool_, INPUT_OUTPUT_DESCRIPTOR_SET_BINDINGS,
                   INPUT_OUTPUT_DESCRIPTOR_UPDATE_TEMPLATE, INPUT_OUTPUT_BANK_INFO,
                   COMPUTE_PUSH_CONSTANT_RANGE<sizeof(u32) * 3>, VULKAN_QUAD_INDEXED_COMP_SPV),
       scheduler{scheduler_}, staging_buffer_pool{staging_buffer_pool_},
-      update_descriptor_queue{update_descriptor_queue_} {}
+      compute_pass_descriptor_queue{compute_pass_descriptor_queue_} {}
 
 QuadIndexedPass::~QuadIndexedPass() = default;
 
@@ -272,10 +272,10 @@ std::pair<VkBuffer, VkDeviceSize> QuadIndexedPass::Assemble(
     const std::size_t staging_size = num_tri_vertices * sizeof(u32);
     const auto staging = staging_buffer_pool.Request(staging_size, MemoryUsage::DeviceLocal);
 
-    update_descriptor_queue.Acquire();
-    update_descriptor_queue.AddBuffer(src_buffer, src_offset, input_size);
-    update_descriptor_queue.AddBuffer(staging.buffer, staging.offset, staging_size);
-    const void* const descriptor_data{update_descriptor_queue.UpdateData()};
+    compute_pass_descriptor_queue.Acquire();
+    compute_pass_descriptor_queue.AddBuffer(src_buffer, src_offset, input_size);
+    compute_pass_descriptor_queue.AddBuffer(staging.buffer, staging.offset, staging_size);
+    const void* const descriptor_data{compute_pass_descriptor_queue.UpdateData()};
 
     scheduler.RequestOutsideRenderPassOperationContext();
     scheduler.Record([this, descriptor_data, num_tri_vertices, base_vertex, index_shift,
@@ -304,13 +304,14 @@ std::pair<VkBuffer, VkDeviceSize> QuadIndexedPass::Assemble(
 ASTCDecoderPass::ASTCDecoderPass(const Device& device_, Scheduler& scheduler_,
                                  DescriptorPool& descriptor_pool_,
                                  StagingBufferPool& staging_buffer_pool_,
-                                 UpdateDescriptorQueue& update_descriptor_queue_,
+                                 ComputePassDescriptorQueue& compute_pass_descriptor_queue_,
                                  MemoryAllocator& memory_allocator_)
     : ComputePass(device_, descriptor_pool_, ASTC_DESCRIPTOR_SET_BINDINGS,
                   ASTC_PASS_DESCRIPTOR_UPDATE_TEMPLATE_ENTRY, ASTC_BANK_INFO,
                   COMPUTE_PUSH_CONSTANT_RANGE<sizeof(AstcPushConstants)>, ASTC_DECODER_COMP_SPV),
       scheduler{scheduler_}, staging_buffer_pool{staging_buffer_pool_},
-      update_descriptor_queue{update_descriptor_queue_}, memory_allocator{memory_allocator_} {}
+      compute_pass_descriptor_queue{compute_pass_descriptor_queue_}, memory_allocator{
+                                                                         memory_allocator_} {}
 
 ASTCDecoderPass::~ASTCDecoderPass() = default;
 
@@ -358,11 +359,11 @@ void ASTCDecoderPass::Assemble(Image& image, const StagingBufferRef& map,
         const u32 num_dispatches_y = Common::DivCeil(swizzle.num_tiles.height, 8U);
         const u32 num_dispatches_z = image.info.resources.layers;
 
-        update_descriptor_queue.Acquire();
-        update_descriptor_queue.AddBuffer(map.buffer, input_offset,
-                                          image.guest_size_bytes - swizzle.buffer_offset);
-        update_descriptor_queue.AddImage(image.StorageImageView(swizzle.level));
-        const void* const descriptor_data{update_descriptor_queue.UpdateData()};
+        compute_pass_descriptor_queue.Acquire();
+        compute_pass_descriptor_queue.AddBuffer(map.buffer, input_offset,
+                                                image.guest_size_bytes - swizzle.buffer_offset);
+        compute_pass_descriptor_queue.AddImage(image.StorageImageView(swizzle.level));
+        const void* const descriptor_data{compute_pass_descriptor_queue.UpdateData()};
 
         // To unswizzle the ASTC data
         const auto params = MakeBlockLinearSwizzle2DParams(swizzle, image.info);

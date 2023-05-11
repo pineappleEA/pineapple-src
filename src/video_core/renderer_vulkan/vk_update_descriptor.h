@@ -32,7 +32,7 @@ class UpdateDescriptorQueue final {
     // This should be plenty for the vast majority of cases. Most desktop platforms only
     // provide up to 3 swapchain images.
     static constexpr size_t FRAMES_IN_FLIGHT = 5;
-    static constexpr size_t FRAME_PAYLOAD_SIZE = 0x10000;
+    static constexpr size_t FRAME_PAYLOAD_SIZE = 0x20000;
     static constexpr size_t PAYLOAD_SIZE = FRAME_PAYLOAD_SIZE * FRAMES_IN_FLIGHT;
 
 public:
@@ -85,5 +85,9 @@ private:
     const DescriptorUpdateEntry* upload_start = nullptr;
     std::array<DescriptorUpdateEntry, PAYLOAD_SIZE> payload;
 };
+
+// TODO: should these be separate classes instead?
+using GuestDescriptorQueue = UpdateDescriptorQueue;
+using ComputePassDescriptorQueue = UpdateDescriptorQueue;
 
 } // namespace Vulkan

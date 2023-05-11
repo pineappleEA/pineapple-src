@@ -9,6 +9,7 @@
 #include "common/common_types.h"
 #include "video_core/engines/maxwell_3d.h"
 #include "video_core/renderer_vulkan/vk_descriptor_pool.h"
+#include "video_core/renderer_vulkan/vk_update_descriptor.h"
 #include "video_core/vulkan_common/vulkan_memory_allocator.h"
 #include "video_core/vulkan_common/vulkan_wrapper.h"
 
@@ -21,7 +22,6 @@ namespace Vulkan {
 class Device;
 class StagingBufferPool;
 class Scheduler;
-class UpdateDescriptorQueue;
 class Image;
 struct StagingBufferRef;
 
@@ -50,7 +50,7 @@ class Uint8Pass final : public ComputePass {
 public:
     explicit Uint8Pass(const Device& device_, Scheduler& scheduler_,
                        DescriptorPool& descriptor_pool_, StagingBufferPool& staging_buffer_pool_,
-                       UpdateDescriptorQueue& update_descriptor_queue_);
+                       ComputePassDescriptorQueue& compute_pass_descriptor_queue_);
     ~Uint8Pass();
 
     /// Assemble uint8 indices into an uint16 index buffer
@@ -61,7 +61,7 @@ public:
 private:
     Scheduler& scheduler;
     StagingBufferPool& staging_buffer_pool;
-    UpdateDescriptorQueue& update_descriptor_queue;
+    ComputePassDescriptorQueue& compute_pass_descriptor_queue;
 };
 
 class QuadIndexedPass final : public ComputePass {
@@ -69,7 +69,7 @@ public:
     explicit QuadIndexedPass(const Device& device_, Scheduler& scheduler_,
                              DescriptorPool& descriptor_pool_,
                              StagingBufferPool& staging_buffer_pool_,
-                             UpdateDescriptorQueue& update_descriptor_queue_);
+                             ComputePassDescriptorQueue& compute_pass_descriptor_queue_);
     ~QuadIndexedPass();
 
     std::pair<VkBuffer, VkDeviceSize> Assemble(
@@ -79,7 +79,7 @@ public:
 private:
     Scheduler& scheduler;
     StagingBufferPool& staging_buffer_pool;
-    UpdateDescriptorQueue& update_descriptor_queue;
+    ComputePassDescriptorQueue& compute_pass_descriptor_queue;
 };
 
 class ASTCDecoderPass final : public ComputePass {
@@ -87,7 +87,7 @@ public:
     explicit ASTCDecoderPass(const Device& device_, Scheduler& scheduler_,
                              DescriptorPool& descriptor_pool_,
                              StagingBufferPool& staging_buffer_pool_,
-                             UpdateDescriptorQueue& update_descriptor_queue_,
+                             ComputePassDescriptorQueue& compute_pass_descriptor_queue_,
                              MemoryAllocator& memory_allocator_);
     ~ASTCDecoderPass();
 
@@ -97,7 +97,7 @@ public:
 private:
     Scheduler& scheduler;
     StagingBufferPool& staging_buffer_pool;
-    UpdateDescriptorQueue& update_descriptor_queue;
+    ComputePassDescriptorQueue& compute_pass_descriptor_queue;
     MemoryAllocator& memory_allocator;
 };
 

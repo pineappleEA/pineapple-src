@@ -63,7 +63,8 @@ class BufferCacheRuntime {
 public:
     explicit BufferCacheRuntime(const Device& device_, MemoryAllocator& memory_manager_,
                                 Scheduler& scheduler_, StagingBufferPool& staging_pool_,
-                                UpdateDescriptorQueue& update_descriptor_queue_,
+                                GuestDescriptorQueue& guest_descriptor_queue,
+                                ComputePassDescriptorQueue& compute_pass_descriptor_queue,
                                 DescriptorPool& descriptor_pool);
 
     void Finish();
@@ -116,12 +117,12 @@ public:
 
     void BindTextureBuffer(Buffer& buffer, u32 offset, u32 size,
                            VideoCore::Surface::PixelFormat format) {
-        update_descriptor_queue.AddTexelBuffer(buffer.View(offset, size, format));
+        guest_descriptor_queue.AddTexelBuffer(buffer.View(offset, size, format));
     }
 
 private:
     void BindBuffer(VkBuffer buffer, u32 offset, u32 size) {
-        update_descriptor_queue.AddBuffer(buffer, offset, size);
+        guest_descriptor_queue.AddBuffer(buffer, offset, size);
     }
 
     void ReserveNullBuffer();
@@ -130,7 +131,7 @@ private:
     MemoryAllocator& memory_allocator;
     Scheduler& scheduler;
     StagingBufferPool& staging_pool;
-    UpdateDescriptorQueue& update_descriptor_queue;
+    GuestDescriptorQueue& guest_descriptor_queue;
 
     std::shared_ptr<QuadArrayIndexBuffer> quad_array_index_buffer;
     std::shared_ptr<QuadStripIndexBuffer> quad_strip_index_buffer;

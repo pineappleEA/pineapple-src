@@ -34,7 +34,6 @@ class ImageView;
 class Framebuffer;
 class RenderPassCache;
 class StagingBufferPool;
-class UpdateDescriptorQueue;
 class Scheduler;
 
 class TextureCacheRuntime {
@@ -45,7 +44,7 @@ public:
                                  BlitImageHelper& blit_image_helper_,
                                  RenderPassCache& render_pass_cache_,
                                  DescriptorPool& descriptor_pool,
-                                 UpdateDescriptorQueue& update_descriptor_queue);
+                                 ComputePassDescriptorQueue& compute_pass_descriptor_queue);
 
     void Finish();
 

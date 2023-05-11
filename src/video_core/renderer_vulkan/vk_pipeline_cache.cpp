@@ -277,11 +277,11 @@ bool GraphicsPipelineCacheKey::operator==(const GraphicsPipelineCacheKey& rhs) c
 
 PipelineCache::PipelineCache(RasterizerVulkan& rasterizer_, const Device& device_,
                              Scheduler& scheduler_, DescriptorPool& descriptor_pool_,
-                             UpdateDescriptorQueue& update_descriptor_queue_,
+                             GuestDescriptorQueue& guest_descriptor_queue_,
                              RenderPassCache& render_pass_cache_, BufferCache& buffer_cache_,
                              TextureCache& texture_cache_, VideoCore::ShaderNotify& shader_notify_)
     : VideoCommon::ShaderCache{rasterizer_}, device{device_}, scheduler{scheduler_},
-      descriptor_pool{descriptor_pool_}, update_descriptor_queue{update_descriptor_queue_},
+      descriptor_pool{descriptor_pool_}, guest_descriptor_queue{guest_descriptor_queue_},
       render_pass_cache{render_pass_cache_}, buffer_cache{buffer_cache_},
       texture_cache{texture_cache_}, shader_notify{shader_notify_},
       use_asynchronous_shaders{Settings::values.use_asynchronous_shaders.GetValue()},
@@ -643,7 +643,7 @@ std::unique_ptr<GraphicsPipeline> PipelineCache::CreateGraphicsPipeline(
     Common::ThreadWorker* const thread_worker{build_in_parallel ? &workers : nullptr};
     return std::make_unique<GraphicsPipeline>(
         scheduler, buffer_cache, texture_cache, vulkan_pipeline_cache, &shader_notify, device,
-        descriptor_pool, update_descriptor_queue, thread_worker, statistics, render_pass_cache, key,
+        descriptor_pool, guest_descriptor_queue, thread_worker, statistics, render_pass_cache, key,
         std::move(modules), infos);
 
 } catch (const Shader::Exception& exception) {
@@ -723,7 +723,7 @@ std::unique_ptr<ComputePipeline> PipelineCache::CreateComputePipeline(
     }
     Common::ThreadWorker* const thread_worker{build_in_parallel ? &workers : nullptr};
     return std::make_unique<ComputePipeline>(device, vulkan_pipeline_cache, descriptor_pool,
-                                             update_descriptor_queue, thread_worker, statistics,
+                                             guest_descriptor_queue, thread_worker, statistics,
                                              &shader_notify, program.info, std::move(spv_module));
 
 } catch (const Shader::Exception& exception) {

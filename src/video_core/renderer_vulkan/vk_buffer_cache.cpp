@@ -298,12 +298,14 @@ private:
 
 BufferCacheRuntime::BufferCacheRuntime(const Device& device_, MemoryAllocator& memory_allocator_,
                                        Scheduler& scheduler_, StagingBufferPool& staging_pool_,
-                                       UpdateDescriptorQueue& update_descriptor_queue_,
+                                       GuestDescriptorQueue& guest_descriptor_queue_,
+                                       ComputePassDescriptorQueue& compute_pass_descriptor_queue,
                                        DescriptorPool& descriptor_pool)
     : device{device_}, memory_allocator{memory_allocator_}, scheduler{scheduler_},
-      staging_pool{staging_pool_}, update_descriptor_queue{update_descriptor_queue_},
-      uint8_pass(device, scheduler, descriptor_pool, staging_pool, update_descriptor_queue),
-      quad_index_pass(device, scheduler, descriptor_pool, staging_pool, update_descriptor_queue) {
+      staging_pool{staging_pool_}, guest_descriptor_queue{guest_descriptor_queue_},
+      uint8_pass(device, scheduler, descriptor_pool, staging_pool, compute_pass_descriptor_queue),
+      quad_index_pass(device, scheduler, descriptor_pool, staging_pool,
+                      compute_pass_descriptor_queue) {
     quad_array_index_buffer = std::make_shared<QuadArrayIndexBuffer>(device_, memory_allocator_,
                                                                      scheduler_, staging_pool_);
     quad_strip_index_buffer = std::make_shared<QuadStripIndexBuffer>(device_, memory_allocator_,

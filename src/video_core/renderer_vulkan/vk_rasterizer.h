@@ -184,7 +184,8 @@ private:
 
     StagingBufferPool staging_pool;
     DescriptorPool descriptor_pool;
-    UpdateDescriptorQueue update_descriptor_queue;
+    GuestDescriptorQueue guest_descriptor_queue;
+    ComputePassDescriptorQueue compute_pass_descriptor_queue;
     BlitImageHelper blit_image;
     RenderPassCache render_pass_cache;
 

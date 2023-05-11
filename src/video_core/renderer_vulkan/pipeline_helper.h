@@ -176,7 +176,7 @@ public:
 };
 
 inline void PushImageDescriptors(TextureCache& texture_cache,
-                                 UpdateDescriptorQueue& update_descriptor_queue,
+                                 GuestDescriptorQueue& guest_descriptor_queue,
                                  const Shader::Info& info, RescalingPushConstant& rescaling,
                                  const VkSampler*& samplers,
                                  const VideoCommon::ImageViewInOut*& views) {
@@ -190,7 +190,7 @@ inline void PushImageDescriptors(TextureCache& texture_cache,
             const VkSampler sampler{*(samplers++)};
             ImageView& image_view{texture_cache.GetImageView(image_view_id)};
             const VkImageView vk_image_view{image_view.Handle(desc.type)};
-            update_descriptor_queue.AddSampledImage(vk_image_view, sampler);
+            guest_descriptor_queue.AddSampledImage(vk_image_view, sampler);
             rescaling.PushTexture(texture_cache.IsRescaling(image_view));
         }
     }
@@ -201,7 +201,7 @@ inline void PushImageDescriptors(TextureCache& texture_cache,
                 texture_cache.MarkModification(image_view.image_id);
             }
             const VkImageView vk_image_view{image_view.StorageView(desc.type, desc.format)};
-            update_descriptor_queue.AddImage(vk_image_view);
+            guest_descriptor_queue.AddImage(vk_image_view);
             rescaling.PushImage(texture_cache.IsRescaling(image_view));
         }
     }
