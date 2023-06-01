@@ -87,7 +87,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../src/yuzu/multiplayer/chat_room.ui" line="40"/>
         <source>Send Chat Message</source>
-        <translation>Sohbet Mesajı At</translation>
+        <translation>Sohbet Mesajı Gönder</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/multiplayer/chat_room.ui" line="47"/>
@@ -381,17 +381,17 @@ Bu işlem onların hem forum kullanıcı adını hem de IP adresini banlar.</tra
     <message>
         <location filename="../../src/yuzu/configuration/configure_audio.ui" line="42"/>
         <source>Output Device:</source>
-        <translation type="unfinished"/>
+        <translation>Çıkış Cihazı:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_audio.ui" line="56"/>
         <source>Input Device:</source>
-        <translation type="unfinished"/>
+        <translation>Giriş Cihazı:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_audio.ui" line="70"/>
         <source>Sound Output Mode:</source>
-        <translation type="unfinished"/>
+        <translation>Ses Çıkış Modu:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_audio.ui" line="78"/>
@@ -416,7 +416,7 @@ Bu işlem onların hem forum kullanıcı adını hem de IP adresini banlar.</tra
     <message>
         <location filename="../../src/yuzu/configuration/configure_audio.ui" line="119"/>
         <source>Set volume:</source>
-        <translation>Sesi ayarla:</translation>
+        <translation>Sesi Ayarla:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_audio.ui" line="127"/>
@@ -508,7 +508,7 @@ Bu işlem onların hem forum kullanıcı adını hem de IP adresini banlar.</tra
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu.ui" line="34"/>
         <source>Accuracy:</source>
-        <translation>Doğruluk:</translation>
+        <translation>Hassasiyet:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu.ui" line="42"/>
@@ -518,7 +518,7 @@ Bu işlem onların hem forum kullanıcı adını hem de IP adresini banlar.</tra
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu.ui" line="47"/>
         <source>Accurate</source>
-        <translation>Doğru</translation>
+        <translation>Kesin</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu.ui" line="52"/>
@@ -543,7 +543,7 @@ Bu işlem onların hem forum kullanıcı adını hem de IP adresini banlar.</tra
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu.ui" line="91"/>
         <source>These settings reduce accuracy for speed.</source>
-        <translation>Bu ayarlar daha hızlı bir deneyim için doğruluk oranını azaltır.</translation>
+        <translation>Bu ayarlar daha hızlı bir deneyim için hassasiyet oranını azaltır.</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu.ui" line="101"/>
@@ -707,7 +707,7 @@ Bu seçenek belleğe yazma/okuma işlemlerindeki güvenlik kontrolünü kaldıra
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu_debug.ui" line="84"/>
         <source>Enable fast dispatcher</source>
-        <translation>Hızlı görevlendiriciyi etkinleştir</translation>
+        <translation>Hızlı göndericiyi etkinleştir</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_cpu_debug.ui" line="91"/>
@@ -1453,17 +1453,17 @@ Bu seçenek belleğe yazma/okuma işlemlerindeki güvenlik kontrolünü kaldıra
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics.ui" line="173"/>
         <source>Use disk pipeline cache</source>
-        <translation>Disk pipeline cache&apos;ini kullan</translation>
+        <translation>Disk önbelleklemesini kullan</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics.ui" line="180"/>
         <source>Use asynchronous GPU emulation</source>
-        <translation>Asenkronize GPU emülasyonu kullan</translation>
+        <translation>Asenkron GPU emülasyonu kullan</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics.ui" line="187"/>
         <source>Accelerate ASTC texture decoding</source>
-        <translation>ASTC kaplama çözümünü hızlandır</translation>
+        <translation>ASTC dokularının çözülmesini hızlandır.</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics.ui" line="209"/>
@@ -1593,7 +1593,7 @@ Bu seçenek belleğe yazma/okuma işlemlerindeki güvenlik kontrolünü kaldıra
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics.ui" line="430"/>
         <source>Window Adapting Filter:</source>
-        <translation>Pencereye Uyarlı Filtre:</translation>
+        <translation>Pencere Uyarlama Filtresi:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics.ui" line="438"/>
@@ -1713,17 +1713,17 @@ Bu seçenek belleğe yazma/okuma işlemlerindeki güvenlik kontrolünü kaldıra
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="46"/>
         <source>Accuracy Level:</source>
-        <translation>Kesinlik Düzeyi:</translation>
+        <translation>Hassasiyet Düzeyi:</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="75"/>
         <source>Runs work in the background while waiting for graphics commands to keep the GPU from lowering its clock speed.</source>
-        <translation type="unfinished"/>
+        <translation>GPU saat hızının düşmesini engellemek için grafik komutlarını beklerken arka planda çalışır.</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="78"/>
         <source>Force maximum clocks (Vulkan only)</source>
-        <translation type="unfinished"/>
+        <translation>Maksimum saat hızını zorla (yalnızca Vulkan)</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="85"/>
@@ -1738,12 +1738,12 @@ Bu seçenek belleğe yazma/okuma işlemlerindeki güvenlik kontrolünü kaldıra
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="95"/>
         <source>Enables asynchronous ASTC texture decoding, which may reduce load time stutter. This feature is experimental.</source>
-        <translation type="unfinished"/>
+        <translation>Bu özellik deneysel bir özelliktir ve yüklenme süresi takılmasını azaltabilir. Asenkron ASTC dokusu çözme işlevini etkinleştirir</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="98"/>
         <source>Decode ASTC textures asynchronously (Hack)</source>
-        <translation type="unfinished"/>
+        <translation>ASTC dokularını asenkron olarak işle (Hack).</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="105"/>
@@ -1768,22 +1768,22 @@ Bu seçenek belleğe yazma/okuma işlemlerindeki güvenlik kontrolünü kaldıra
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="125"/>
         <source>Enables pessimistic buffer flushes. This option will force unmodified buffers to be flushed, which can cost performance.</source>
-        <translation type="unfinished"/>
+        <translation>Negatif tampon temizliğini etkinleştirir. Bu seçenek, değiştirilmemiş tamponların boşaltılmasını zorlar, performansa mal olabilir.</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="128"/>
         <source>Use pessimistic buffer flushes (Hack)</source>
-        <translation type="unfinished"/>
+        <translation>Negatif tampon temizliğini etkinleştir (Hack)</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="135"/>
         <source>Enables GPU vendor-specific pipeline cache. This option can improve shader loading time significantly in cases where the Vulkan driver does not store pipeline cache files internally.</source>
-        <translation type="unfinished"/>
+        <translation>GPU üreticisine özgü pipeline önbelleğini etkinleştirir. Bu seçenek, Vulkan sürücüsünün pipeline önbelleği dosyalarını dahili olarak saklamadığı durumlarda shader yükleme süresini önemli ölçüde iyileştirebilir.</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="138"/>
         <source>Use Vulkan pipeline cache</source>
-        <translation type="unfinished"/>
+        <translation>Vulkan önbelleği kullan</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/configuration/configure_graphics_advanced.ui" line="160"/>
@@ -4296,7 +4296,7 @@ Noktanın konumunu değiştirmek için sürükleyin ya da sayıların üstüne �
     <message>
         <location filename="../../src/yuzu/configuration/configure_vibration.ui" line="509"/>
         <source>Enable Accurate Vibration</source>
-        <translation>Doğru Titreşimi Etkinleştir</translation>
+        <translation>İyileştirilmiş Titreşimi Etkinleştir</translation>
     </message>
 </context>
 <context>
@@ -5680,17 +5680,17 @@ Görmezden gelip kapatmak ister misiniz?</translation>
     <message>
         <location filename="../../src/yuzu/game_list.cpp" line="547"/>
         <source>Remove OpenGL Pipeline Cache</source>
-        <translation>OpenGL Pipeline Cache&apos;ini Kaldır</translation>
+        <translation>OpenGL Önbelleğini Temizle</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/game_list.cpp" line="548"/>
         <source>Remove Vulkan Pipeline Cache</source>
-        <translation>Vulkan Pipeline Cache&apos;ini Kaldır</translation>
+        <translation>Vulkan Önbelleğini Temizle</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/game_list.cpp" line="550"/>
         <source>Remove All Pipeline Caches</source>
-        <translation>Bütün Pipeline Cache&apos;lerini Kaldır</translation>
+        <translation>Tüm Önbelleği Temizle</translation>
     </message>
     <message>
         <location filename="../../src/yuzu/game_list.cpp" line="551"/>
