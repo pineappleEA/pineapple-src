@@ -30,8 +30,8 @@ jobs:
       - name: Build binary
         run: |
               mkdir -p "$HOME/.ccache"
-              docker pull quriouspixel/yuzu:latest
-              docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .github/workflows/docker.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache quriouspixel/yuzu:latest /bin/bash /yuzu/.github/workflows/docker.sh
+              docker pull jonatasgoncalves/yuzu:latest
+              docker run -u root -e ENABLE_COMPATIBILITY_REPORTING --env-file .github/workflows/docker.env -v $(pwd):/yuzu -v "$HOME/.ccache":/root/.ccache jonatasgoncalves/yuzu:latest /bin/bash /yuzu/.github/workflows/docker.sh
       - name: Package AppImage
         run:  echo "Success!"
       - name: Upload AppImage
