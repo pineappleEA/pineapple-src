@@ -6,7 +6,7 @@ on:
   
 jobs:
   appimage:
-    name: pineapple bundled as appimage
+    name: appimage
     runs-on: ubuntu-latest
 
     steps:
