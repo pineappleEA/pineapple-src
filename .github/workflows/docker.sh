@@ -47,6 +47,7 @@ mkdir build && cd build
 
 cmake ..                                    \
   -DCMAKE_BUILD_TYPE=Release                \
+  -DYUZU_USE_QT_WEB_ENGINE=ON               \
   -DCMAKE_C_COMPILER=/usr/lib/ccache/gcc    \
   -DCMAKE_CXX_COMPILER=/usr/lib/ccache/g++  \
   -DTITLE_BAR_FORMAT_IDLE="$title"          \
