@@ -24,7 +24,7 @@ CACHEDIR=~/.ccache
 ls -al $CACHEDIR
 ###############################################
 # Install SDL
-SDL2VER=2.0.22
+SDL2VER=2.26.4
 #SDL2
 cd $CACHEDIR
 if [[ ! -e SDL2-${SDL2VER} ]]; then
